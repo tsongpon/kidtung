@@ -1,6 +1,5 @@
 package com.kidtung.dao;
 
-import com.kidtung.domain.TestDomain;
 import com.kidtung.domain.Trip;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
