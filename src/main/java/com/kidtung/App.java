@@ -1,7 +1,5 @@
 package com.kidtung;
 
-import com.kidtung.dao.TestDAO;
-import com.kidtung.domain.TestDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
