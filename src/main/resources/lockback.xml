@@ -5,13 +5,12 @@
             <pattern>%d{HH:mm:ss} [%-5p] [%t] [%c{10}][%M][%L] - %m%n</pattern>
         </encoder>
     </appender>
-    <logger name="com" level="DEBUG"/>
+    <logger name="com.kidtung" level="DEBUG"/>
     <logger name="com.mchange.v2.c3p0" level="WARN"/>
     <logger name="httpclient.wire" level="INFO"/>
     <logger name="net" level="INFO"/>
 
-    <logger name="org" level="INFO"/>
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.eclipse" level="INFO"/>
     <root level="DEBUG">
         <appender-ref ref="console"/>
     </root>

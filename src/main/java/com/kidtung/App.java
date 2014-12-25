@@ -20,7 +20,7 @@ public class App {
         staticFileLocation("/public");
 
         get("/kidtung", (request, response) -> {
-            log.info("Redering kidtung.html");
+            log.debug("Redering kidtung.html");
             // The hello.html file is located in directory:
             // src/resources/spark/template/freemarker
             return new ModelAndView(null, "kidtung.html");
