@@ -3,19 +3,17 @@ package com.kidtung;
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Member;
 import com.kidtung.domain.Trip;
+import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
-import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.kidtung.util.KidtungUtil.json;
 import static spark.Spark.get;
-import static spark.Spark.post;
 import static spark.Spark.put;
 import static spark.SparkBase.staticFileLocation;
 
@@ -53,22 +51,26 @@ public class App {
             return memberList;
         }, json());
 
-        get("/kidtung/api/trips", (request, response) -> {
+        get("/api/kidtung/trips", (request, response) -> {
             TripDAO tripDAO = new TripDAO();
-            return tripDAO.loadTrips();
+            return new KidtungMock().mockTrip();
         }, json());
 
-        get("/kidtung/api/trips/:code", (request, response) -> {
+        get("/api/kidtung/trips/:code", (request, response) -> {
             TripDAO tripDAO = new TripDAO();
             return tripDAO.loadTripByCode(request.params(":code"));
         }, json());
 
-        put("/kidtung/api/trips", (request, response) -> {
+        put("/api/kidtung/trips/:code", (request, response) -> {
+            log.debug("request body : {}", request.body());
             TripDAO tripDAO = new TripDAO();
-            tripDAO.save(KidtungUtil.toObject(request.body()));
-            response.status(200);
+            TripRequestTransport transport = KidtungUtil.toTripTransport(request.body());
+            Trip trip = KidtungUtil.fromTransport(transport);
+            tripDAO.save(trip);
+            response.status(201);
             response.body("Created");
-            return response;
+            return "http://"+request.host()+"/trips/"+trip.getCode();
         });
+
     }
 }
