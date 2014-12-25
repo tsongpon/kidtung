@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>Summary</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -17,9 +17,10 @@
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
 
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,34 +43,65 @@
         <h3 class="text-muted">KIDTUNG</h3>
     </div>
 
-    <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-    </div>
+    <div role="tabpanel">
 
-    <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Manage Debts</a></li>
+        </ul>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <h4>Total Balance : 300 &#3647;</h4>
+                <table id="tbl-summary" class="table">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Paid</th>
+                            <th>Debt/Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="label label-pink">Pang</span></td>
+                            <td>0&#3647;</td>
+                            <td><span class="txt-red">-300 &#3647;</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-green">Bee</span></td>
+                            <td>200 &#3647;</td>
+                            <td><span class="txt-red">-100&#3647;</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="label label-blue">Ni</span></td>
+                            <td>700 &#3647;</td>
+                            <td><span class="txt-green">+400&#3647;</span></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <table id="tbl-debt" class="table">
+                    <tr>
+                        <td><span class="label label-pink">Pang</span></td>
+                        <td>pay to <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
+                        <td><span class="label label-blue">Ni</span></td>
+                        <td>300 &#3647;</td>
+                    </tr>
+                    <tr>
+                        <td><span class="label label-green">Bee</span></td>
+                        <td>pay to <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
+                        <td><span class="label label-blue">Ni</span></td>
+                        <td>100 &#3647;</td>
+                    </tr>
+
+                </table>
+            </div>
         </div>
 
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
     </div>
 
     <footer class="footer">
@@ -78,8 +110,18 @@
 
 </div> <!-- /container -->
 
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<!--
+ Bootstrap core JavaScript
+=======================
+-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/docs.min.js"></script>
+<script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
 </body>
 </html>
