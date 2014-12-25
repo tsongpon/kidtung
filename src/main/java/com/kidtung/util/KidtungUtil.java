@@ -1,10 +1,9 @@
 package com.kidtung.util;
 
+import com.google.gson.Gson;
 import org.apache.commons.lang3.RandomStringUtils;
+import spark.ResponseTransformer;
 
-/**
- *
- */
 public final class KidtungUtil {
 
     private KidtungUtil() {
@@ -13,5 +12,13 @@ public final class KidtungUtil {
 
     public static String generateRandomCode(int codeLength) {
         return RandomStringUtils.randomAlphabetic(codeLength);
+    }
+
+    public static String toJson(Object object) {
+        return new Gson().toJson(object);
+    }
+
+    public static ResponseTransformer json() {
+        return KidtungUtil::toJson;
     }
 }
