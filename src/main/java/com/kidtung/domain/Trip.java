@@ -1,8 +1,13 @@
 package com.kidtung.domain;
 
+import org.mongojack.Id;
+import org.mongojack.ObjectId;
+
 import java.util.List;
 
 public class Trip {
+
+    @Id
     private String code;
     private String name;
     private String description;
