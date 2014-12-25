@@ -1,10 +1,138 @@
+
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Welcome to KIDTUNG</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
-    <h1>Plan to have a trip?</h1>
+
+<div class="container">
+    <!--
+    <div class="header">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="paymentlist">Payment</a></li>
+                <li role="presentation"><a href="summary">Summary</a></li>
+                <li role="presentation"><a href="#">Help</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">KIDTUNG</h3>
+    </div>
+    -->
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> This trip name is not available.
+    </div>
+    <div class="row marketing">
+        <h1>Welcome to KIDTUNG</h1>
+        <p class="lead">Kidtung is an application to manage and calculate expend during the trip.</p>
+    </div>
+    <div class="jumbotron">
+        <h4>Create Group</h4>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Trip Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputName" placeholder="eg. changmai_trip">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDesc" class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputDesc" placeholder="">
+                </div>
+            </div>
+            <div id="memberlist">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Member</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"  placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-9">
+                    <button id="more-member" type="button" class="btn btn-default">Add More Member</button>
+                </div>
+            </div>
+        </form>
+        <!--<p><a class="btn btn-lg btn-success" href="kidtung/paymentlist" role="button">Create</a></p>-->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Create
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Your trip and link</h4>
+                </div>
+                <div class="modal-body">
+                    <span>This is your trip channel, please copy and share this link to your friend.</span><br/>
+                    <div class="well">http://.../...</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='kidtung/paymentlist'">Copy and Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Company 2014</p>
+    </footer>
+
+</div> <!-- /container -->
+<!--
+
+ Bootstrap core JavaScript
+=======================…
+
+-->
+
+<!--
+
+ Placed at the end of the document so the pages load faster
+
+-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/docs.min.js"></script>
+
+<script>
+    $("#more-member").click(function () {
+        $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-9"><input type="text" class="form-control space-top"></div>')
+    });
+</script>
 </body>
 </html>
