@@ -94,7 +94,47 @@ label.control-label span { cursor: pointer; }
     padding: 14px 24px;
     font-size: 21px;
 }
+.txt-red {
+    color: red;
+}
+.txt-green {
+    color: limegreen;
+}
+.tab-content {
+    margin-top: 20px;
+}
+#tbl-summary {
+    margin-top: 10px;
+}
+#tbl-summary thead th {
+    font-weight: bold;
+}
+#tbl-summary tbody td:nth-child(2) {
+    color: #808080;
+    text-align: right;
+}
+#tbl-summary thead th:nth-child(2) {
+    text-align: right;
+}
+#tbl-summary thead th:last-child {
+    text-align: right;
+}
+#tbl-summary tbody td:last-child {
+    font-size: 20px;
+    text-align: right;
+}
 
+#tbl-debt, #tbl-debt tr, #tbl-debt tr td {
+    border: 0px;
+}
+#tbl-debt td:last-child {
+    text-align: right;
+    font-size: 20px;
+}
+.nav-tabs > li > a {
+    font-size: 18px;
+    font-weight: 500;
+}
 /* Supporting marketing content */
 .marketing {
     margin: 40px 0;
