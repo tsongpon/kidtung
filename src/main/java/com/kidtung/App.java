@@ -1,19 +1,22 @@
 package com.kidtung;
 
-import com.kidtung.domain.Expend;
+import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Member;
+import com.kidtung.domain.Trip;
 import com.kidtung.util.KidtungUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
+import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.kidtung.util.KidtungUtil.json;
 import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.put;
 import static spark.SparkBase.staticFileLocation;
 
 
@@ -49,5 +52,23 @@ public class App {
 
             return memberList;
         }, json());
+
+        get("/kidtung/api/trips", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            return tripDAO.loadTrips();
+        }, json());
+
+        get("/kidtung/api/trips/:code", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            return tripDAO.loadTripByCode(request.params(":code"));
+        }, json());
+
+        put("/kidtung/api/trips", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            tripDAO.save(KidtungUtil.toObject(request.body()));
+            response.status(200);
+            response.body("Created");
+            return response;
+        });
     }
 }
