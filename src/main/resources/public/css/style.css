@@ -23,7 +23,9 @@ body {
     margin-bottom: 0;
     line-height: 40px;
 }
-
+h5.show-date {
+    color: #808080;
+}
 .jumbotron {
     text-align: left;
 }
@@ -31,6 +33,40 @@ body {
 .space-top {
     margin-top: 15px;
 }
+
+.label-pink {
+    background: pink;
+}
+.label-green {
+    background: limegreen;
+}
+.label-blue {
+    background: deepskyblue;
+}
+.paymentlist td:first-child {
+    width: 100px;
+}
+.paymentlist td:nth-child(3) {
+    width: 200px;
+    text-align: right;
+    font-weight: bold;
+}
+.paymentlist td:last-child {
+    width: 20px;
+    text-align: right;
+}
+
+.row-total {
+    font-size: 20px;
+}
+
+.btn-add-payment {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
 
 /* Custom page footer */
 .footer {
