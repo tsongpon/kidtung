@@ -20,10 +20,20 @@ public class App {
         staticFileLocation("/public");
 
         get("/kidtung", (request, response) -> {
-            log.info("Redering kidtung.html");
+            log.debug("Redering kidtung.html");
             // The hello.html file is located in directory:
             // src/resources/spark/template/freemarker
             return new ModelAndView(null, "kidtung.html");
+        }, new FreeMarkerEngine());
+        get("/kidtung/paymentlist", (request, response) -> {
+            // The hello.html file is located in directory:
+            // src/resources/spark/template/freemarker
+            return new ModelAndView(null, "paymentlist.html");
+        }, new FreeMarkerEngine());
+        get("/kidtung/summary", (request, response) -> {
+            // The hello.html file is located in directory:
+            // src/resources/spark/template/freemarker
+            return new ModelAndView(null, "summary.html");
         }, new FreeMarkerEngine());
     }
 }
