@@ -24,6 +24,8 @@ public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
+        //port(80);
+
         //config static file location
         staticFileLocation("/public");
 
@@ -62,7 +64,7 @@ public class App {
             TripDAO dao = new TripDAO();
             Trip trip = dao.loadTripByCode(tripCode);
             if(trip == null) {
-                new ModelAndView(null, "notfound.html");
+                return new ModelAndView(null, "notfound.html");
             }
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
@@ -269,7 +271,7 @@ public class App {
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://" + request.host() + "/kidtung/trips/" + trip.getCode();
+            return "http://" + request.host() + "/kidtung/" + trip.getCode();
         });
 
         get("api/kidtung/trips/:code/reports", (request, response) -> {

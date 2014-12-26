@@ -56,10 +56,14 @@ function addExpendController($scope, $http) {
     };
 
     initPaymentList($scope, $http);
+    var path = window.location.pathname;
+    $scope.globalTripCode = path.split("/")[2];
 }
 
 function summaryController($scope, $http) {
     initSummary($scope, $http);
+    var path = window.location.pathname;
+    $scope.globalTripCode = path.split("/")[2];
 }
 
 var initPaymentList = function ($scope, $http) {
