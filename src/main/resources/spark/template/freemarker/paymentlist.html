@@ -9,17 +9,19 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>Payment List</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/datepicker.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
 
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,33 +44,107 @@
         <h3 class="text-muted">KIDTUNG</h3>
     </div>
 
-    <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+    <div class="row marketing">
+        <div class="col-lg-12">
+            <h4>Payment List</h4>
+            <button type="button" class="btn btn-success btn-add-payment" data-toggle="modal" data-target="#newExpend">+ Add New Expend</button>
+
+            <h5 class="show-date" style="margin-top: 30px;">1/1/14</h5>
+            <table class="table paymentlist">
+                <tr>
+                    <td><span class="label label-pink">Pang</span></td>
+                    <td>Gas</td>
+                    <td>100</td>
+                    <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+                <tr>
+                    <td><span class="label label-green">Bee</span></td>
+                    <td>somtum</td>
+                    <td>200</td>
+                    <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+            </table>
+
+            <h5 class="show-date">2/1/14</h5>
+            <table class="table paymentlist">
+                <tr>
+                    <td><span class="label label-blue">Ni</span></td>
+                    <td>Breakfast</td>
+                    <td>120</td>
+                    <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+            </table>
+
+            <table class="table row-total">
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td>420</td>
+                    <td>&#3647; </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+    <!-- Modal -->
+    <div class="modal fade" id="newExpend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">New Expand</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
+                            <div class="col-sm-9">
+                                <select id="inputWhoPaid" class="form-control">
+                                    <option>Select member</option>
+                                    <option>Pang</option>
+                                    <option>Bee</option>
+                                    <option>Ni</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPurpose" class="col-sm-3 control-label">Purpose</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputPurpose" placeholder="eg. Gas, Museum fee, ...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                <input type="text" class="form-control" id="inputPrice" placeholder="Amount">
+                                <div class="input-group-addon">&#3647;</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDate" class="col-sm-3 control-label">Date</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                <input type="text" class="form-control date-picker" id="inputDate" placeholder="">
+                                <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -77,9 +153,16 @@
     </footer>
 
 </div> <!-- /container -->
-
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<!--
+ Bootstrap core JavaScript
+=======================
+-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/docs.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script>
+    $(".date-picker").datepicker();
+</script>
 </body>
 </html>

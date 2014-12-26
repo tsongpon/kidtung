@@ -23,7 +23,9 @@ body {
     margin-bottom: 0;
     line-height: 40px;
 }
-
+h5.show-date {
+    color: #808080;
+}
 .jumbotron {
     text-align: left;
 }
@@ -31,6 +33,60 @@ body {
 .space-top {
     margin-top: 15px;
 }
+
+.label-pink {
+    background: pink;
+}
+.label-green {
+    background: limegreen;
+}
+.label-blue {
+    background: deepskyblue;
+}
+.paymentlist td:first-child, .row-total td:first-child {
+    width: 100px;
+}
+.paymentlist td:nth-child(3) {
+    width: 200px;
+    text-align: right;
+    font-weight: bold;
+}
+.paymentlist td:nth-child(4) {
+    width: 20px;
+    text-align: right;
+}
+.paymentlist td:nth-child(5) {
+    text-align: right;
+    width: 100px;
+}
+.paymentlist td:nth-child(6) {
+    text-align: right;
+    width: 30px;
+}
+.paymentlist td:nth-child(5) .btn, .paymentlist td:nth-child(6) .btn {
+    padding: 4px 7px;
+    font-size: 12px;
+}
+
+.row-total {
+    font-size: 20px;
+}
+.row-total td:nth-child(3) {
+    text-align: right;
+}
+.row-total td:nth-child(4) {
+    width: 20px;
+    text-align: right;
+    padding-right: 150px;
+}
+
+.btn-add-payment {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
 
 /* Custom page footer */
 .footer {
@@ -58,7 +114,50 @@ body {
     padding: 14px 24px;
     font-size: 21px;
 }
+.txt-red {
+    color: red;
+}
+.txt-green {
+    color: limegreen;
+}
+.tab-content {
+    margin-top: 20px;
+}
+#tbl-summary {
+    margin-top: 10px;
+}
+#tbl-summary thead th {
+    font-weight: bold;
+}
+#tbl-summary tbody td:nth-child(2) {
+    color: #808080;
+    text-align: right;
+}
+#tbl-summary thead th:nth-child(2) {
+    text-align: right;
+}
+#tbl-summary thead th:last-child {
+    text-align: right;
+}
+#tbl-summary tbody td:last-child {
+    font-size: 20px;
+    text-align: right;
+}
 
+#tbl-debt, #tbl-debt tr, #tbl-debt tr td {
+    border: 0px;
+}
+#tbl-debt td:last-child {
+    text-align: right;
+    font-size: 20px;
+}
+.nav-tabs > li > a {
+    font-size: 18px;
+    font-weight: 500;
+}
+button.input-group-addon {
+    float: left;
+}
 /* Supporting marketing content */
 .marketing {
     margin: 40px 0;

@@ -5,8 +5,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Expend;
+import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Member;
 import com.kidtung.domain.Trip;
+import com.kidtung.domain.Trip;
+import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
 import com.mongodb.util.JSON;
 import org.slf4j.Logger;
@@ -20,6 +23,8 @@ import java.util.List;
 
 import static com.kidtung.util.KidtungUtil.json;
 import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.put;
 import static spark.SparkBase.staticFileLocation;
 
 
@@ -143,6 +148,28 @@ public class App {
             return "Delete expend at id = " + id;
         });
 
+
+
+        get("/api/kidtung/trips", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            return new KidtungMock().mockTrip();
+        }, json());
+
+        get("/api/kidtung/trips/:code", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            return tripDAO.loadTripByCode(request.params(":code"));
+        }, json());
+
+        put("/api/kidtung/trips/:code", (request, response) -> {
+            log.debug("request body : {}", request.body());
+            TripDAO tripDAO = new TripDAO();
+            TripRequestTransport transport = KidtungUtil.toTripTransport(request.body());
+            Trip trip = KidtungUtil.fromTransport(transport);
+            tripDAO.save(trip);
+            response.status(201);
+            response.body("Created");
+            return "http://"+request.host()+"/trips/"+trip.getCode();
+        });
 
     }
 }
