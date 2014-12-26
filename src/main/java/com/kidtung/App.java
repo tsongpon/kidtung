@@ -2,7 +2,6 @@ package com.kidtung;
 
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.*;
-import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static com.kidtung.util.KidtungUtil.json;
 import static spark.Spark.*;
@@ -26,6 +26,7 @@ import static spark.SparkBase.staticFileLocation;
 public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
+    private static TripDAO tripDAO = new TripDAO();
 
     public static void main( String[] args ) {
         //config static file location
@@ -75,7 +76,7 @@ public class App {
             TripDAO dao = new TripDAO();
             Trip aTrip = null;
             try {
-                aTrip = dao.loadTripByCode(tripCode);
+                aTrip = tripDAO.loadTripByCode(tripCode);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -93,9 +94,9 @@ public class App {
             String name = request.params(":name");
             List<Expend> expendList = new ArrayList();
             List<Member> memberList = new KidtungMock().mockTrip().getMemberList();
-            for(int i=0; i<memberList.size(); i++){
+            for (int i = 0; i < memberList.size(); i++) {
                 Member member = memberList.get(i);
-                if(name.equals(member.getName())){
+                if (name.equals(member.getName())) {
                     expendList = member.getExpendList();
                     break;
                 }
@@ -113,13 +114,12 @@ public class App {
             expend.setCode(KidtungUtil.generateRandomCode(3));
             expend.setPayDate(new Date());
 
-            TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
             List<Member> memberList = trip.getMemberList();
             List<Expend> expendList = new ArrayList();
-            for(int i=0; i<memberList.size(); i++){
+            for (int i = 0; i < memberList.size(); i++) {
                 Member member = memberList.get(i);
-                if(name.equals(member.getName())){
+                if (name.equals(member.getName())) {
                     expendList = member.getExpendList();
                     expendList.add(expend);
                     break;
@@ -132,23 +132,22 @@ public class App {
         });
 
         put("/api/kidtung/trips/:code/members/:name/expends/:id", (request, response) -> {
-            log.info("PUT /api/kidtung/trips/:code/members/:name/expends/:id") ;
+            log.info("PUT /api/kidtung/trips/:code/members/:name/expends/:id");
             String code = request.params(":code");
             String name = request.params(":name");
             String id = request.params(":id");
             log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
-            TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
             List<Member> memberList = trip.getMemberList();
             List<Expend> expendList = new ArrayList();
-            for(int i=0; i<memberList.size();i++){
+            for (int i = 0; i < memberList.size(); i++) {
                 Member member = memberList.get(i);
-                if(name.equals(member.getName())){
+                if (name.equals(member.getName())) {
                     expendList = member.getExpendList();
-                    for(int j=0 ; j<expendList.size();j++){
+                    for (int j = 0; j < expendList.size(); j++) {
                         Expend expendRow = expendList.get(j);
-                        if(id.equals(expendRow.getCode())){
+                        if (id.equals(expendRow.getCode())) {
                             expendRow.setItem(expend.getItem());
                             expendRow.setPrice(expend.getPrice());
                             expendRow.setPayDate(expendRow.getPayDate());
@@ -158,7 +157,7 @@ public class App {
                     break;
                 }
             }
-            tripDAO.update(code,trip);
+            tripDAO.update(code, trip);
             response.status(200);
             response.body("Update Expend");
             log.info(id);
@@ -172,7 +171,6 @@ public class App {
             String id = request.params(":id");
             log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
-            TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
             List<Member> memberList = trip.getMemberList();
             List<Expend> expendList = new ArrayList();
@@ -198,40 +196,61 @@ public class App {
             return response;
         });
 
+        // for member
+        get("/kidtung/api/trips/:code/members", (request, response) -> {
+            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/");
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            if(trip != null){
+                return trip.getMemberList();
+            }else{
+                return "Sorry, Trip not found.";
+            }
+        }, json());
 
+        get("/kidtung/api/trips/:code/members/:name", (request, response) -> {
+            String name = request.params(":name");
+            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/" + name);
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            if (trip != null) {
+                Optional<Member> member = trip.getMemberList().stream().filter(m -> m.getName().equals(name)).findAny();
+                if(member.isPresent()){
+                    return member.get();
+                }else{
+                    return "Sorry, " + name + " not found in this trip.";
+                }
+            }else{
+                return "Sorry, Trip not found.";
+            }
+        }, json());
 
         get("/api/kidtung/trips", (request, response) -> {
-            TripDAO tripDAO = new TripDAO();
             return new KidtungMock().mockTrip();
         }, json());
 
         get("/api/kidtung/trips/:code", (request, response) -> {
-            TripDAO tripDAO = new TripDAO();
             return tripDAO.loadTripByCode(request.params(":code"));
         }, json());
 
         put("/api/kidtung/trips/:code", (request, response) -> {
             log.debug("request body : {}", request.body());
-            TripDAO tripDAO = new TripDAO();
             TripRequestTransport transport = KidtungUtil.toTripTransport(request.body());
             Trip trip = KidtungUtil.fromTransport(transport);
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://" + request.host() + "/kidtung/" + trip.getCode();
+            return "http://" + request.host() + "/kidtung/trips/" + trip.getCode();
         });
 
         get("api/kidtung/trips/:code/reports", (request, response) -> {
             log.debug("summary trips");
-            TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             TripReport report = new TripReport();
             int memberNo = trip.getMemberList().size();
             report.setMemberNo(memberNo);
             double price = 0.00;
-            for(Member member: trip.getMemberList()){
-                for(Expend expend: member.getExpendList()){
-                    if(expend.getPrice() != null){
+            for (Member member : trip.getMemberList()) {
+                for (Expend expend : member.getExpendList()) {
+                    if (expend.getPrice() != null) {
                         price = price + expend.getPrice();
                         log.debug("expend: {}", expend.getPrice());
                         log.debug("price: {}", price);
@@ -240,13 +259,12 @@ public class App {
             }
             DecimalFormat decim = new DecimalFormat("0.00");
             report.setTotal(Double.parseDouble(decim.format(price)));
-            report.setAverage(Double.parseDouble(decim.format(price/memberNo)));
+            report.setAverage(Double.parseDouble(decim.format(price / memberNo)));
             return report;
         }, json());
 
         get("api/kidtung/trips/:code/members/:name/reports", (request, response) -> {
             log.debug("summary trips");
-            TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             int memberNo = trip.getMemberList().size();
             DecimalFormat decim = new DecimalFormat("0.00");
@@ -262,14 +280,14 @@ public class App {
                 }
             }
             Double total = Double.parseDouble(decim.format(price));
-            Double avg = Double.parseDouble(decim.format(price / memberNo));
+            Double avg = Double.parseDouble(decim.format(price/memberNo));
             personalTripReport.setTotal(total);
             personalTripReport.setAverage(avg);
             double personalPay = 0.00;
-            for (Member member : trip.getMemberList()) {
-                if (request.params(":name").equals(member.getName())) {
-                    for (Expend personExpend : member.getExpendList()) {
-                        if (personExpend.getPrice() != null) {
+            for(Member member : trip.getMemberList()){
+                if(request.params(":name").equals(member.getName())){
+                    for (Expend personExpend: member.getExpendList()){
+                        if(personExpend.getPrice() != null){
                             personalPay = personalPay + personExpend.getPrice();
                             log.debug("expend: {}", personExpend.getPrice());
                             log.debug("price: {}", personalPay);
