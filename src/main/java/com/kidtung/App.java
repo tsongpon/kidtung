@@ -1,10 +1,8 @@
 package com.kidtung;
 
 import com.kidtung.dao.TripDAO;
-import com.kidtung.domain.Expend;
+import com.kidtung.domain.*;
 import com.kidtung.dao.TripDAO;
-import com.kidtung.domain.Member;
-import com.kidtung.domain.Trip;
 import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
@@ -13,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -209,8 +208,71 @@ public class App {
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://"+request.host()+"/trips/"+trip.getCode();
+            return "http://"+request.host()+"/kidtung/trips/"+trip.getCode();
         });
+
+        get("api/kidtung/trips/:code/reports", (request, response) -> {
+            log.debug("summary trips");
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            TripReport report = new TripReport();
+            int memberNo = trip.getMemberList().size();
+            report.setMemberNo(memberNo);
+            double price = 0.00;
+            for(Member member: trip.getMemberList()){
+                for(Expend expend: member.getExpendList()){
+                    if(expend.getPrice() != null){
+                        price = price + expend.getPrice();
+                        log.debug("expend: {}", expend.getPrice());
+                        log.debug("price: {}", price);
+                    }
+                }
+            }
+            DecimalFormat decim = new DecimalFormat("0.00");
+            report.setTotal(Double.parseDouble(decim.format(price)));
+            report.setAverage(Double.parseDouble(decim.format(price/memberNo)));
+            return report;
+        }, json());
+
+        get("api/kidtung/trips/:code/members/:name/reports", (request, response) -> {
+            log.debug("summary trips");
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            int memberNo = trip.getMemberList().size();
+            DecimalFormat decim = new DecimalFormat("0.00");
+            PersonalTripReport personalTripReport = new PersonalTripReport();
+            double price = 0.00;
+            for(Member member: trip.getMemberList()){
+                for(Expend expend: member.getExpendList()){
+                    if(expend.getPrice() != null){
+                        price = price + expend.getPrice();
+                        log.debug("expend: {}", expend.getPrice());
+                        log.debug("price: {}", price);
+                    }
+                }
+            }
+            Double total = Double.parseDouble(decim.format(price));
+            Double avg = Double.parseDouble(decim.format(price/memberNo));
+            personalTripReport.setTotal(total);
+            personalTripReport.setAverage(avg);
+            double personalPay = 0.00;
+            for(Member member : trip.getMemberList()){
+                if(request.params(":name").equals(member.getName())){
+                    for (Expend personExpend: member.getExpendList()){
+                        if(personExpend.getPrice() != null){
+                            personalPay = personalPay + personExpend.getPrice();
+                            log.debug("expend: {}", personExpend.getPrice());
+                            log.debug("price: {}", personalPay);
+                        }
+                    }
+                }
+            }
+            Double pay = Double.parseDouble(decim.format(personalPay));
+            personalTripReport.setPay(pay);
+            Double balance = Double.parseDouble(decim.format(pay - avg));
+            personalTripReport.setBalance(balance);
+            return personalTripReport;
+        }, json());
 
     }
 }
