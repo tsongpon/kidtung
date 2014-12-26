@@ -15,11 +15,7 @@ import java.util.List;
  */
 public class TripDAO {
 
-    final static String MONGO_IP = "192.168.50.48";
-    final static int MONGO_PORT = 27017;
-
-    private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
-    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 8080;
+    final static String IP_ADDRESS = "localhost";
 
     public void save(Trip trip) {
         MongoClient mongoClient = null;

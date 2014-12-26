@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -24,10 +23,7 @@ public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
-    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 4567;
-
     public static void main(String[] args) {
-        port(PORT);
         //config static file location
         staticFileLocation("/public");
 
