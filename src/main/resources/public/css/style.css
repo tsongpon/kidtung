@@ -43,7 +43,7 @@ h5.show-date {
 .label-blue {
     background: deepskyblue;
 }
-.paymentlist td:first-child, .row-total td:first-child {
+.paymentlist td:first-child {
     width: 100px;
 }
 .paymentlist td:nth-child(3) {
@@ -51,33 +51,13 @@ h5.show-date {
     text-align: right;
     font-weight: bold;
 }
-.paymentlist td:nth-child(4) {
+.paymentlist td:last-child {
     width: 20px;
     text-align: right;
-}
-.paymentlist td:nth-child(5) {
-    text-align: right;
-    width: 100px;
-}
-.paymentlist td:nth-child(6) {
-    text-align: right;
-    width: 30px;
-}
-.paymentlist td:nth-child(5) .btn, .paymentlist td:nth-child(6) .btn {
-    padding: 4px 7px;
-    font-size: 12px;
 }
 
 .row-total {
     font-size: 20px;
-}
-.row-total td:nth-child(3) {
-    text-align: right;
-}
-.row-total td:nth-child(4) {
-    width: 20px;
-    text-align: right;
-    padding-right: 150px;
 }
 
 .btn-add-payment {
@@ -154,9 +134,6 @@ label.control-label span { cursor: pointer; }
 .nav-tabs > li > a {
     font-size: 18px;
     font-weight: 500;
-}
-button.input-group-addon {
-    float: left;
 }
 /* Supporting marketing content */
 .marketing {

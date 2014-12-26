@@ -33,45 +33,11 @@
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
+    <script src="/js/kidtungControllers.js"></script>
     <!-- PROCESS FORM WITH AJAX (NEW) -->
-    <script>
-
-        // define angular module/app
-        var formApp = angular.module('formApp', []);
-
-        // create angular controller and pass in $scope and $http
-        function formController($scope, $http) {
-            //$scope.formData = {};
-
-            // process the form
-            $scope.processForm = function() {
-                var memberArray = document.getElementsByName('member');
-                var size = memberArray.length;
-                var mems = [];
-                for(var i=0;i<size;i++) {
-                    mems[i] = memberArray[i].value;
-                }
-                 $http({
-                    method  : 'PUT',
-                    url     : '/api/kidtung/trips/'+$scope.name,
-                    data: {
-                        id: 4,
-                        name: $scope.name,
-                        description: $scope.desc,
-                        members: mems
-                    },  // pass in data as strings
-                    headers : { 'Content-Type': 'application/json' }  // set the headers so angular passing info as form data (not request payload)
-                })
-                        .success(function(data) {
-                           $scope.address = data;
-                        });
-            };
-        }
-
-    </script>
 </head>
 
-<body ng-app="formApp" ng-controller="formController">
+<body ng-app="kidtungApp" ng-controller="createTripController">
 
 <div class="container">
     <!--

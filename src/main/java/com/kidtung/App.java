@@ -1,22 +1,17 @@
 package com.kidtung;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.kidtung.dao.TripDAO;
-import com.kidtung.domain.Expend;
+import com.kidtung.domain.*;
 import com.kidtung.dao.TripDAO;
-import com.kidtung.domain.Member;
-import com.kidtung.domain.Trip;
 import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
-import com.mongodb.util.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,15 +73,14 @@ public class App {
             String name = request.params(":name");
             log.info(tripCode + "--" + name);
 
-            return new ModelAndView(null, "kidtung.html");
+            return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
 
         //for expend
-        get("kidtung/api/trips/:code/members/:name/expends", "application/json", (request, response) -> {
-            log.info("GET kidtung/api/trips/:code/members/:name/expends");
+        get("/api/kidtung/trips/:code/members/:name/expends", "application/json", (request, response) -> {
+            log.info("GET /api/kidtung/trips/:code/members/:name/expends");
             String name = request.params(":name");
-            
             List<Expend> expendList = new ArrayList();
             List<Member> memberList = new KidtungMock().mockTrip().getMemberList();
             for(int i=0; i<memberList.size(); i++){
@@ -100,17 +94,15 @@ public class App {
             return expendList;
         }, json());
 
-        post("kidtung/api/trips/:code/members/:name/expends", (request, response) -> {
-            log.info("POST kidtung/api/trips/:code/members/:name/expends");
-            String jsonData = request.body();
-            Expend expend = new Expend();  //should be data from request.body()
-            expend.setCode(KidtungUtil.generateRandomCode(3));
-            expend.setItem("Gas");
-            expend.setPayDate(new Date());
-            expend.setPrice(1700.00);
-
+        post("/api/kidtung/trips/:code/members/:name/expends", (request, response) -> {
+            log.info("POST /api/kidtung/trips/:code/members/:name/expends");
             String code = request.params(":code");
             String name = request.params(":name");
+            log.info("request.body()  = " + request.body());
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
+            expend.setCode(KidtungUtil.generateRandomCode(3));
+            expend.setPayDate(new Date());
+
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
             List<Member> memberList = trip.getMemberList();
@@ -120,32 +112,80 @@ public class App {
                 if(name.equals(member.getName())){
                     expendList = member.getExpendList();
                     expendList.add(expend);
-                    member.setExpendList(expendList); //set new expendList
                     break;
                 }
             }
-
-            tripDAO.save(trip);
-            log.info(jsonData);
-            return jsonData;
-        },json());
-
-        put("/kidtung/api/trips/:code/members/:id", (request, response) -> {
-            log.info("PUT /kidtung/api/trips/:code/members/:id");
-            String id = request.params(":id");
-            String jsonData = request.body();
-
-            log.info(id);
-            return "Update expend at id = " + id;
+            tripDAO.update(code, trip);
+            response.status(200);
+            response.body("Created Expend");
+            return response;
         });
 
-        delete("/kidtung/api/trips/:code/members/:id", (request, response) -> {
-            log.info("DELETE /kidtung/api/trips/:code/members/:id");
+        put("/api/kidtung/trips/:code/members/:name/expends/:id", (request, response) -> {
+            log.info("PUT /api/kidtung/trips/:code/members/:name/expends/:id") ;
+            String code = request.params(":code");
+            String name = request.params(":name");
             String id = request.params(":id");
-            String jsonData = request.body();
-
+            log.info("request.body()  = " + request.body());
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(code);
+            List<Member> memberList = trip.getMemberList();
+            List<Expend> expendList = new ArrayList();
+            for(int i=0; i<memberList.size();i++){
+                Member member = memberList.get(i);
+                if(name.equals(member.getName())){
+                    expendList = member.getExpendList();
+                    for(int j=0 ; j<expendList.size();j++){
+                        Expend expendRow = expendList.get(j);
+                        if(id.equals(expendRow.getCode())){
+                            expendRow.setItem(expend.getItem());
+                            expendRow.setPrice(expend.getPrice());
+                            expendRow.setPayDate(expendRow.getPayDate());
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            tripDAO.update(code,trip);
+            response.status(200);
+            response.body("Update Expend");
             log.info(id);
-            return "Delete expend at id = " + id;
+            return response;
+        });
+
+        delete("/api/kidtung/trips/:code/members/:name/expends/:id", (request, response) -> {
+            log.info("DELETE /api/kidtung/trips/:code/members/:name/expends/:id");
+            String code = request.params(":code");
+            String name = request.params(":name");
+            String id = request.params(":id");
+            log.info("request.body()  = " + request.body());
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(code);
+            List<Member> memberList = trip.getMemberList();
+            List<Expend> expendList = new ArrayList();
+            for(int i=0;i<memberList.size();i++) {
+                Member member = memberList.get(i);
+                if(name.equals(member.getName())){
+                    expendList = member.getExpendList();
+                    log.info("#### expendList size before remove = " + expendList.size());
+                    for(int j=0;j<expendList.size();j++){
+                        Expend expendRow = expendList.get(j);
+                        if(id.equals(expendRow.getCode())) {
+                            expendList.remove(j);
+                            log.info("----- expendList size after remove = " + expendList.size());
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            tripDAO.update(code,trip);
+            response.status(200);
+            response.body("Delete Expend");
+            return response;
         });
 
 
@@ -168,8 +208,71 @@ public class App {
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://"+request.host()+"/trips/"+trip.getCode();
+            return "http://"+request.host()+"/kidtung/trips/"+trip.getCode();
         });
+
+        get("api/kidtung/trips/:code/reports", (request, response) -> {
+            log.debug("summary trips");
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            TripReport report = new TripReport();
+            int memberNo = trip.getMemberList().size();
+            report.setMemberNo(memberNo);
+            double price = 0.00;
+            for(Member member: trip.getMemberList()){
+                for(Expend expend: member.getExpendList()){
+                    if(expend.getPrice() != null){
+                        price = price + expend.getPrice();
+                        log.debug("expend: {}", expend.getPrice());
+                        log.debug("price: {}", price);
+                    }
+                }
+            }
+            DecimalFormat decim = new DecimalFormat("0.00");
+            report.setTotal(Double.parseDouble(decim.format(price)));
+            report.setAverage(Double.parseDouble(decim.format(price/memberNo)));
+            return report;
+        }, json());
+
+        get("api/kidtung/trips/:code/members/:name/reports", (request, response) -> {
+            log.debug("summary trips");
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            int memberNo = trip.getMemberList().size();
+            DecimalFormat decim = new DecimalFormat("0.00");
+            PersonalTripReport personalTripReport = new PersonalTripReport();
+            double price = 0.00;
+            for(Member member: trip.getMemberList()){
+                for(Expend expend: member.getExpendList()){
+                    if(expend.getPrice() != null){
+                        price = price + expend.getPrice();
+                        log.debug("expend: {}", expend.getPrice());
+                        log.debug("price: {}", price);
+                    }
+                }
+            }
+            Double total = Double.parseDouble(decim.format(price));
+            Double avg = Double.parseDouble(decim.format(price/memberNo));
+            personalTripReport.setTotal(total);
+            personalTripReport.setAverage(avg);
+            double personalPay = 0.00;
+            for(Member member : trip.getMemberList()){
+                if(request.params(":name").equals(member.getName())){
+                    for (Expend personExpend: member.getExpendList()){
+                        if(personExpend.getPrice() != null){
+                            personalPay = personalPay + personExpend.getPrice();
+                            log.debug("expend: {}", personExpend.getPrice());
+                            log.debug("price: {}", personalPay);
+                        }
+                    }
+                }
+            }
+            Double pay = Double.parseDouble(decim.format(personalPay));
+            personalTripReport.setPay(pay);
+            Double balance = Double.parseDouble(decim.format(pay - avg));
+            personalTripReport.setBalance(balance);
+            return personalTripReport;
+        }, json());
 
     }
 }
