@@ -1,8 +1,5 @@
 package com.kidtung;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Expend;
 import com.kidtung.dao.TripDAO;
@@ -11,7 +8,6 @@ import com.kidtung.domain.Trip;
 import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
-import com.mongodb.util.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -103,12 +99,9 @@ public class App {
         post("kidtung/api/trips/:code/members/:name/expends", (request, response) -> {
             log.info("POST kidtung/api/trips/:code/members/:name/expends");
             String jsonData = request.body();
-            Expend expend = new Expend();  //should be data from request.body()
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
             expend.setCode(KidtungUtil.generateRandomCode(3));
-            expend.setItem("Gas");
             expend.setPayDate(new Date());
-            expend.setPrice(1700.00);
-
             String code = request.params(":code");
             String name = request.params(":name");
             TripDAO tripDAO = new TripDAO();
@@ -120,20 +113,25 @@ public class App {
                 if(name.equals(member.getName())){
                     expendList = member.getExpendList();
                     expendList.add(expend);
-                    member.setExpendList(expendList); //set new expendList
+//                    member.setExpendList(expendList); //set new expendList
                     break;
                 }
             }
-
-            tripDAO.save(trip);
+            tripDAO.update(code, trip);
             log.info(jsonData);
-            return jsonData;
-        },json());
+            response.status(200);
+            response.body("Created");
+            return response;
+        });
 
-        put("/kidtung/api/trips/:code/members/:id", (request, response) -> {
-            log.info("PUT /kidtung/api/trips/:code/members/:id");
+        put("kidtung/api/trips/:code/members/:name/expends/:id", (request, response) -> {
+            log.info("PUT kidtung/api/trips/:code/members/:name/expends/:id") ;
+            String code = request.params(":code");
+            String name = request.params(":name");
             String id = request.params(":id");
-            String jsonData = request.body();
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
+            TripDAO tripDAO = new TripDAO();
+
 
             log.info(id);
             return "Update expend at id = " + id;

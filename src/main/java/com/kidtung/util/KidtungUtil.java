@@ -1,6 +1,7 @@
 package com.kidtung.util;
 
 import com.google.gson.Gson;
+import com.kidtung.domain.Expend;
 import com.kidtung.domain.Member;
 import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
@@ -30,6 +31,11 @@ public final class KidtungUtil {
     public static Trip toObject(String jsonStr){
         return new Gson().fromJson(jsonStr, Trip.class);
     }
+
+    public static Expend toExpenseObj(String jsonStr){
+        return new Gson().fromJson(jsonStr, Expend.class);
+    }
+
 
     public static TripRequestTransport toTripTransport(String json) {
         return new Gson().fromJson(json, TripRequestTransport.class);
