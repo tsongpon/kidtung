@@ -1,11 +1,22 @@
 package com.kidtung.domain;
 
 
+import java.security.SecureRandom;
+
 public class PersonalTripReport {
+    String memberName;
     Double total;
     Double average;
     Double pay;
     Double balance;
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
 
     public Double getTotal() {
         return total;

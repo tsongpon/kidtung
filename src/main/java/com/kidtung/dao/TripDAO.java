@@ -18,17 +18,30 @@ public class TripDAO {
     final static String MONGO_IP = "192.168.50.48";
     final static int MONGO_PORT = 27017;
 
-    public void save(Trip trip) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient();
+    private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
+    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 8080;
+
+    public void save(Trip trip) {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(IP_ADDRESS);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         DB db = mongoClient.getDB("kidtung");
         DBCollection collection = db.getCollection("trip");
         JacksonDBCollection<Trip, String> tripCollection = JacksonDBCollection.wrap(collection, Trip.class, String.class);
         tripCollection.insert(trip);
     }
 
-    public List<Trip> loadTrips () throws UnknownHostException {
+    public List<Trip> loadTrips () {
         List<Trip> results = new ArrayList<>();
-        MongoClient mongoClient = new MongoClient();
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(IP_ADDRESS);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         DB db = mongoClient.getDB("kidtung");
         DBCollection trip = db.getCollection("trip");
         try {
@@ -45,8 +58,13 @@ public class TripDAO {
         return results;
     }
 
-    public Trip loadTripByCode (String code) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient();
+    public Trip loadTripByCode (String code) {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(IP_ADDRESS);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         DB db = mongoClient.getDB("kidtung");
         DBCollection trip = db.getCollection("trip");
         JacksonDBCollection<Trip, String> tripCollection = JacksonDBCollection.wrap(trip,
@@ -54,8 +72,13 @@ public class TripDAO {
         return tripCollection.findOne(DBQuery.is("_id", code));
     }
 
-    public void update(String code, Trip trip) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient();
+    public void update(String code, Trip trip) {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(IP_ADDRESS);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         DB db = mongoClient.getDB("kidtung");
         DBCollection collection = db.getCollection("trip");
         JacksonDBCollection<Trip, String> tripCollection = JacksonDBCollection.wrap(collection,
@@ -64,8 +87,14 @@ public class TripDAO {
 
     }
 
-    public void delete(String code) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient();
+    public void delete(String code)
+    {
+        MongoClient mongoClient = null;
+        try {
+            mongoClient = new MongoClient(IP_ADDRESS);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         DB db = mongoClient.getDB("kidtung");
         DBCollection collection = db.getCollection("trip");
         JacksonDBCollection<Trip, String> tripCollection = JacksonDBCollection.wrap(collection,

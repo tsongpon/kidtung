@@ -84,7 +84,7 @@
                 <tr>
                     <td></td>
                     <td>Total</td>
-                    <td>420</td>
+                    <td>{{total}}</td>
                     <td>&#3647; </td>
                 </tr>
             </table>
@@ -95,58 +95,55 @@
     <div class="modal fade" id="newExpend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <form ng-submit="expendForm()" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">New Expand</h4>
                 </div>
                 <div class="modal-body">
-                    <form ng-submit="processForm()" class="form-horizontal">
-                        <div class="form-group">
-                            <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
-                            <div class="col-sm-9">
-                                <select id="inputWhoPaid" class="form-control">
-                                    <option>Select member</option>
-                                    <option>Pang</option>
-                                    <option>Bee</option>
-                                    <option>Ni</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPurpose" class="col-sm-3 control-label">Purpose</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputPurpose" placeholder="eg. Gas, Museum fee, ...">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                <input type="text" class="form-control" id="inputPrice" placeholder="Amount">
-                                <div class="input-group-addon">&#3647;</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputDate" class="col-sm-3 control-label">Date</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                <input type="text" class="form-control date-picker" id="inputDate" placeholder="">
-                                <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
 
-                                </div>
+                    <div class="form-group">
+                        <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
+                        <div class="col-sm-9">
+                            <select id="inputWhoPaid" class="form-control" ng-model="name">
+                                <option value="">Please select</option>
+                                <option ng-repeat="eachMember in allMember" value="{{eachMember.name}}">{{eachMember.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPurpose" class="col-sm-3 control-label">Purpose</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputPurpose" ng-model="purpose" placeholder="eg. Gas, Museum fee, ...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                            <input type="text" class="form-control" id="inputPrice" ng-model="price" placeholder="Amount">
+                            <div class="input-group-addon">&#3647;</div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDate" class="col-sm-3 control-label">Date</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                            <input type="text" class="form-control date-picker" id="inputDate" ng-model="date" placeholder="">
+                            <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
+
+                            </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
                 </div>
-                <!--<div class="modal-footer">-->
-                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    <!--<button type="button" class="btn btn-primary">Save</button>-->
-                <!--</div>-->
+                </form>
             </div>
         </div>
     </div>
@@ -165,7 +162,8 @@
 <script src="/js/docs.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script>
-    $(".date-picker").datepicker();
+$(".date-picker").datepicker();
+
 </script>
 </body>
 </html>
