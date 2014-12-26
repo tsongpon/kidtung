@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,12 +73,34 @@ public class App {
             String tripCode = request.params(":tripcode");
             String name = request.params(":name");
             log.info(tripCode + "--" + name);
+            TripDAO dao = new TripDAO();
+            Trip aTrip = null;
+            try {
+                aTrip = tripDAO.loadTripByCode(tripCode);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            if(aTrip == null) {
+                return new ModelAndView(null, "notfound.html");
+            }
 
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
 
         //for expend
+        get("/api/kidtung/trips/:code/expends", (request, response) -> {
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/expends");
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            if (trip != null) {
+                List<Expend> expendListAll = new ArrayList<>();
+                trip.getMemberList().stream().forEach(m -> expendListAll.addAll(m.getExpendList()));
+                return expendListAll;
+            }else{
+                return "Sorry, Trip not found.";
+            }
+        }, json());
+
         get("/api/kidtung/trips/:code/members/:name/expends", "application/json", (request, response) -> {
             log.info("GET /api/kidtung/trips/:code/members/:name/expends");
             String name = request.params(":name");
@@ -186,8 +209,8 @@ public class App {
         });
 
         // for member
-        get("/kidtung/api/trips/:code/members", (request, response) -> {
-            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/");
+        get("/api/kidtung/trips/:code/members", (request, response) -> {
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/members/");
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             if(trip != null){
                 return trip.getMemberList();
@@ -196,9 +219,9 @@ public class App {
             }
         }, json());
 
-        get("/kidtung/api/trips/:code/members/:name", (request, response) -> {
+        get("/api/kidtung/trips/:code/members/:name", (request, response) -> {
             String name = request.params(":name");
-            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/" + name);
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/members/" + name);
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             if (trip != null) {
                 Optional<Member> member = trip.getMemberList().stream().filter(m -> m.getName().equals(name)).findAny();
