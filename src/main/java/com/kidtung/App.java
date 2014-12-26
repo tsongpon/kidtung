@@ -168,7 +168,7 @@ public class App {
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://"+request.host()+"/trips/"+trip.getCode();
+            return "http://"+request.host()+"/kidtung/trips/"+trip.getCode();
         });
 
     }
