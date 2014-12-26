@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/datepicker.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
@@ -60,12 +61,16 @@
                     <td>Gas</td>
                     <td>100</td>
                     <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                 </tr>
                 <tr>
                     <td><span class="label label-green">Bee</span></td>
                     <td>somtum</td>
                     <td>200</td>
                     <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                 </tr>
             </table>
 
@@ -76,10 +81,12 @@
                     <td>Breakfast</td>
                     <td>120</td>
                     <td>&#3647; </td>
+                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                 </tr>
             </table>
 
-            <table class="table paymentlist row-total">
+            <table class="table row-total">
                 <tr>
                     <td></td>
                     <td>Total</td>
@@ -103,7 +110,12 @@
                         <div class="form-group">
                             <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputWhoPaid" placeholder="eg. member name">
+                                <select id="inputWhoPaid" class="form-control">
+                                    <option>Select member</option>
+                                    <option>Pang</option>
+                                    <option>Bee</option>
+                                    <option>Ni</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,13 +127,20 @@
                         <div class="form-group">
                             <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputPrice" placeholder="">
+                                <div class="input-group">
+                                <input type="text" class="form-control" id="inputPrice" placeholder="Amount">
+                                <div class="input-group-addon">&#3647;</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputDate" class="col-sm-3 control-label">Date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputDate" placeholder="">
+                                <div class="input-group">
+                                <input type="text" class="form-control date-picker" id="inputDate" placeholder="">
+                                <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
+
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -146,5 +165,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/docs.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script>
+    $(".date-picker").datepicker();
+</script>
 </body>
 </html>
