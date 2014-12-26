@@ -89,6 +89,18 @@ public class App {
 
 
         //for expend
+        get("/api/kidtung/trips/:code/expends", (request, response) -> {
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/expends");
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            if (trip != null) {
+                List<Expend> expendListAll = new ArrayList<>();
+                trip.getMemberList().stream().forEach(m -> expendListAll.addAll(m.getExpendList()));
+                return expendListAll;
+            }else{
+                return "Sorry, Trip not found.";
+            }
+        }, json());
+
         get("/api/kidtung/trips/:code/members/:name/expends", "application/json", (request, response) -> {
             log.info("GET /api/kidtung/trips/:code/members/:name/expends");
             String name = request.params(":name");
@@ -197,8 +209,8 @@ public class App {
         });
 
         // for member
-        get("/kidtung/api/trips/:code/members", (request, response) -> {
-            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/");
+        get("/api/kidtung/trips/:code/members", (request, response) -> {
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/members/");
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             if(trip != null){
                 return trip.getMemberList();
@@ -207,9 +219,9 @@ public class App {
             }
         }, json());
 
-        get("/kidtung/api/trips/:code/members/:name", (request, response) -> {
+        get("/api/kidtung/trips/:code/members/:name", (request, response) -> {
             String name = request.params(":name");
-            log.info("GET /kidtung/api/trips/" + request.params(":code") + "/members/" + name);
+            log.info("GET /api/kidtung/trips/" + request.params(":code") + "/members/" + name);
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             if (trip != null) {
                 Optional<Member> member = trip.getMemberList().stream().filter(m -> m.getName().equals(name)).findAny();
