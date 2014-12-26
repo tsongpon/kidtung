@@ -2,7 +2,6 @@ package com.kidtung;
 
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.*;
-import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.Trip;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,6 +72,16 @@ public class App {
             String tripCode = request.params(":tripcode");
             String name = request.params(":name");
             log.info(tripCode + "--" + name);
+            TripDAO dao = new TripDAO();
+            Trip aTrip = null;
+            try {
+                aTrip = dao.loadTripByCode(tripCode);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            if(aTrip == null) {
+                return new ModelAndView(null, "notfound.html");
+            }
 
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
@@ -208,7 +218,7 @@ public class App {
             tripDAO.save(trip);
             response.status(201);
             response.body("Created");
-            return "http://"+request.host()+"/kidtung/trips/"+trip.getCode();
+            return "http://" + request.host() + "/kidtung/" + trip.getCode();
         });
 
         get("api/kidtung/trips/:code/reports", (request, response) -> {
@@ -242,9 +252,9 @@ public class App {
             DecimalFormat decim = new DecimalFormat("0.00");
             PersonalTripReport personalTripReport = new PersonalTripReport();
             double price = 0.00;
-            for(Member member: trip.getMemberList()){
-                for(Expend expend: member.getExpendList()){
-                    if(expend.getPrice() != null){
+            for (Member member : trip.getMemberList()) {
+                for (Expend expend : member.getExpendList()) {
+                    if (expend.getPrice() != null) {
                         price = price + expend.getPrice();
                         log.debug("expend: {}", expend.getPrice());
                         log.debug("price: {}", price);
@@ -252,14 +262,14 @@ public class App {
                 }
             }
             Double total = Double.parseDouble(decim.format(price));
-            Double avg = Double.parseDouble(decim.format(price/memberNo));
+            Double avg = Double.parseDouble(decim.format(price / memberNo));
             personalTripReport.setTotal(total);
             personalTripReport.setAverage(avg);
             double personalPay = 0.00;
-            for(Member member : trip.getMemberList()){
-                if(request.params(":name").equals(member.getName())){
-                    for (Expend personExpend: member.getExpendList()){
-                        if(personExpend.getPrice() != null){
+            for (Member member : trip.getMemberList()) {
+                if (request.params(":name").equals(member.getName())) {
+                    for (Expend personExpend : member.getExpendList()) {
+                        if (personExpend.getPrice() != null) {
                             personalPay = personalPay + personExpend.getPrice();
                             log.debug("expend: {}", personExpend.getPrice());
                             log.debug("price: {}", personalPay);
