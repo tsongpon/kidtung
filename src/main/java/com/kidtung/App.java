@@ -74,15 +74,14 @@ public class App {
             String name = request.params(":name");
             log.info(tripCode + "--" + name);
 
-            return new ModelAndView(null, "kidtung.html");
+            return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
 
         //for expend
-        get("kidtung/api/trips/:code/members/:name/expends", "application/json", (request, response) -> {
-            log.info("GET kidtung/api/trips/:code/members/:name/expends");
+        get("/api/kidtung/trips/:code/members/:name/expends", "application/json", (request, response) -> {
+            log.info("GET /api/kidtung/trips/:code/members/:name/expends");
             String name = request.params(":name");
-            
             List<Expend> expendList = new ArrayList();
             List<Member> memberList = new KidtungMock().mockTrip().getMemberList();
             for(int i=0; i<memberList.size(); i++){
@@ -96,14 +95,15 @@ public class App {
             return expendList;
         }, json());
 
-        post("kidtung/api/trips/:code/members/:name/expends", (request, response) -> {
-            log.info("POST kidtung/api/trips/:code/members/:name/expends");
-            String jsonData = request.body();
+        post("/api/kidtung/trips/:code/members/:name/expends", (request, response) -> {
+            log.info("POST /api/kidtung/trips/:code/members/:name/expends");
+            String code = request.params(":code");
+            String name = request.params(":name");
+            log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
             expend.setCode(KidtungUtil.generateRandomCode(3));
             expend.setPayDate(new Date());
-            String code = request.params(":code");
-            String name = request.params(":name");
+
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
             List<Member> memberList = trip.getMemberList();
@@ -113,37 +113,80 @@ public class App {
                 if(name.equals(member.getName())){
                     expendList = member.getExpendList();
                     expendList.add(expend);
-//                    member.setExpendList(expendList); //set new expendList
                     break;
                 }
             }
             tripDAO.update(code, trip);
-            log.info(jsonData);
             response.status(200);
-            response.body("Created");
+            response.body("Created Expend");
             return response;
         });
 
-        put("kidtung/api/trips/:code/members/:name/expends/:id", (request, response) -> {
-            log.info("PUT kidtung/api/trips/:code/members/:name/expends/:id") ;
+        put("/api/kidtung/trips/:code/members/:name/expends/:id", (request, response) -> {
+            log.info("PUT /api/kidtung/trips/:code/members/:name/expends/:id") ;
             String code = request.params(":code");
             String name = request.params(":name");
             String id = request.params(":id");
+            log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
             TripDAO tripDAO = new TripDAO();
-
-
+            Trip trip = tripDAO.loadTripByCode(code);
+            List<Member> memberList = trip.getMemberList();
+            List<Expend> expendList = new ArrayList();
+            for(int i=0; i<memberList.size();i++){
+                Member member = memberList.get(i);
+                if(name.equals(member.getName())){
+                    expendList = member.getExpendList();
+                    for(int j=0 ; j<expendList.size();j++){
+                        Expend expendRow = expendList.get(j);
+                        if(id.equals(expendRow.getCode())){
+                            expendRow.setItem(expend.getItem());
+                            expendRow.setPrice(expend.getPrice());
+                            expendRow.setPayDate(expendRow.getPayDate());
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            tripDAO.update(code,trip);
+            response.status(200);
+            response.body("Update Expend");
             log.info(id);
-            return "Update expend at id = " + id;
+            return response;
         });
 
-        delete("/kidtung/api/trips/:code/members/:id", (request, response) -> {
-            log.info("DELETE /kidtung/api/trips/:code/members/:id");
+        delete("/api/kidtung/trips/:code/members/:name/expends/:id", (request, response) -> {
+            log.info("DELETE /api/kidtung/trips/:code/members/:name/expends/:id");
+            String code = request.params(":code");
+            String name = request.params(":name");
             String id = request.params(":id");
-            String jsonData = request.body();
-
-            log.info(id);
-            return "Delete expend at id = " + id;
+            log.info("request.body()  = " + request.body());
+            Expend expend = KidtungUtil.toExpenseObj(request.body());
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(code);
+            List<Member> memberList = trip.getMemberList();
+            List<Expend> expendList = new ArrayList();
+            for(int i=0;i<memberList.size();i++) {
+                Member member = memberList.get(i);
+                if(name.equals(member.getName())){
+                    expendList = member.getExpendList();
+                    log.info("#### expendList size before remove = " + expendList.size());
+                    for(int j=0;j<expendList.size();j++){
+                        Expend expendRow = expendList.get(j);
+                        if(id.equals(expendRow.getCode())) {
+                            expendList.remove(j);
+                            log.info("----- expendList size after remove = " + expendList.size());
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            tripDAO.update(code,trip);
+            response.status(200);
+            response.body("Delete Expend");
+            return response;
         });
 
 
