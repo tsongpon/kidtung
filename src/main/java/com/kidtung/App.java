@@ -59,24 +59,23 @@ public class App {
 
 
         //static route
+//        get("/kidtung/:tripcode", (request, response) -> {
+//            log.info("GET kidtung/:tripcode");
+//            String tripCode = request.params(":tripcode");
+//            log.info(tripCode);
+//
+//            return new ModelAndView(null, "summary.html");
+//        }, new FreeMarkerEngine());
+
         get("/kidtung/:tripcode", (request, response) -> {
-            log.info("GET kidtung/:tripcode");
-            String tripCode = request.params(":tripcode");
-            log.info(tripCode);
-
-            return new ModelAndView(null, "summary.html");
-        }, new FreeMarkerEngine());
-
-        get("/kidtung/:tripcode/:name", (request, response) -> {
             log.info("GET /kidtung/:tripcode/:name");
 
             String tripCode = request.params(":tripcode");
-            String name = request.params(":name");
-            log.info(tripCode + "--" + name);
+            log.info(tripCode);
             TripDAO dao = new TripDAO();
             Trip aTrip = null;
             try {
-                aTrip = tripDAO.loadTripByCode(tripCode);
+                aTrip = dao.loadTripByCode(tripCode);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -302,5 +301,18 @@ public class App {
             return personalTripReport;
         }, json());
 
+        get("/api/kidtung/mock", (request, response) -> {
+            List<Expend> expends = new ArrayList<Expend>();
+            Trip trip = new KidtungMock().mockTrip();
+            List<Member> members = trip.getMemberList();
+            for (Member eachMember : members) {
+                for (Expend eachExpend : eachMember.getExpendList()) {
+                    eachExpend.setName(eachMember.getName());
+                    expends.add(eachExpend);
+                }
+            }
+
+            return expends;
+        }, json());
     }
 }

@@ -41,7 +41,7 @@ function addExpendController($scope, $http) {
 var init = function ($scope, $http) {
     $http.get('/api/kidtung/mock').
         success(function(data, status, headers, config) {
-            $scope.memberExpends = data;
+            $scope.allExpends = data;
         }).
         error(function(data, status, headers, config) {
             // called asynchronously if an error occurs

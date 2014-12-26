@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Expend {
     private String code;
+    private String name;
     private String item;
     private Double price;
     private Date payDate;
@@ -38,5 +39,13 @@ public class Expend {
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

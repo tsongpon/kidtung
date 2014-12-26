@@ -58,35 +58,27 @@
 
             <h5 class="show-date" style="margin-top: 30px;">1/1/14</h5>
             <table class="table paymentlist">
-                <tr>
-                    <td><span class="label label-pink">Pang</span></td>
-                    <td>Gas</td>
-                    <td>100</td>
-                    <td>&#3647; </td>
-                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
-                </tr>
-                <tr>
-                    <td><span class="label label-green">Bee</span></td>
-                    <td>somtum</td>
-                    <td>200</td>
+                <tr ng-repeat="expend in allExpends">
+                    <td><span class="label label-pink">{{expend.name}}</span></td>
+                    <td>{{expend.item}}</td>
+                    <td>{{expend.price}}</td>
                     <td>&#3647; </td>
                     <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
                     <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                 </tr>
             </table>
 
-            <h5 class="show-date">2/1/14</h5>
-            <table class="table paymentlist">
-                <tr>
-                    <td><span class="label label-blue">Ni</span></td>
-                    <td>Breakfast</td>
-                    <td>120</td>
-                    <td>&#3647; </td>
-                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
-                </tr>
-            </table>
+            <!--<h5 class="show-date">2/1/14</h5>-->
+            <!--<table class="table paymentlist">-->
+                <!--<tr>-->
+                    <!--<td><span class="label label-blue">Ni</span></td>-->
+                    <!--<td>Breakfast</td>-->
+                    <!--<td>120</td>-->
+                    <!--<td>&#3647; </td>-->
+                    <!--<td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>-->
+                    <!--<td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>-->
+                <!--</tr>-->
+            <!--</table>-->
 
             <table class="table row-total">
                 <tr>

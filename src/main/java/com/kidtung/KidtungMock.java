@@ -50,6 +50,7 @@ public class KidtungMock {
             Expend dinner = new Expend();
             dinner.setPayDate(new Date());
             dinner.setItem("dinner");
+            dinner.setPrice(2500.00);
             dinner.setCode(KidtungUtil.generateRandomCode(3));
             tumExpends.add(dinner);
 
@@ -70,7 +71,8 @@ public class KidtungMock {
 
             Expend snack = new Expend();
             snack.setPayDate(new Date());
-            snack.setItem("pangExpends");
+            snack.setItem("snack");
+            snack.setPrice(550.00);
             snack.setCode(KidtungUtil.generateRandomCode(3));
             pangExpends.add(snack);
 
@@ -91,7 +93,8 @@ public class KidtungMock {
 
             Expend snack = new Expend();
             snack.setPayDate(new Date());
-            snack.setItem("pangExpends");
+            snack.setItem("snack");
+            snack.setPrice(750.00);
             snack.setCode(KidtungUtil.generateRandomCode(3));
             taiExpends.add(snack);
 
