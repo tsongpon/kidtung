@@ -29,6 +29,7 @@ public class TripDAO {
             e.printStackTrace();
         }
         DB db = mongoClient.getDB("kidtung");
+        
         DBCollection collection = db.getCollection("trip");
         JacksonDBCollection<Trip, String> tripCollection = JacksonDBCollection.wrap(collection, Trip.class, String.class);
         tripCollection.insert(trip);
