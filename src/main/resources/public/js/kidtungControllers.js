@@ -29,3 +29,22 @@ function createTripController($scope, $http) {
             });
     };
 }
+
+function addExpendController($scope, $http) {
+    $scope.processForm = function() {
+        alert("adding expense");
+    }
+
+    init($scope, $http);
+}
+
+var init = function ($scope, $http) {
+    $http.get('/api/kidtung/mock').
+        success(function(data, status, headers, config) {
+            $scope.memberExpends = data;
+        }).
+        error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+};

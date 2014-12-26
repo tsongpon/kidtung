@@ -32,9 +32,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+    <script src="/js/kidtungControllers.js"></script>
 </head>
 
-<body>
+<body ng-app="kidtungApp" ng-controller="addExpendController">
 
 <div class="container">
     <div class="header">
@@ -99,7 +101,7 @@
                     <h4 class="modal-title" id="myModalLabel">New Expand</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form ng-submit="processForm()" class="form-horizontal">
                         <div class="form-group">
                             <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
                             <div class="col-sm-9">
@@ -124,12 +126,16 @@
                                 <input type="text" class="form-control" id="inputDate" placeholder="">
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
+                <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <!--<button type="button" class="btn btn-primary">Save</button>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
