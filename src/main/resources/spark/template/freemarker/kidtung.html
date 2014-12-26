@@ -64,7 +64,7 @@
         <h4>Create Group</h4>
         <form ng-submit="processForm()" class="form-horizontal">
             <div class="form-group">
-                <label for="inputName" class="col-sm-3 control-label">Trip Name</label>
+                <label for="inputName" class="col-sm-3 control-label" id="test1">Trip Name</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" ng-model="name" id="inputName" placeholder="eg. changmai_trip">
                 </div>
@@ -88,7 +88,7 @@
                     <button id="more-member" type="button" class="btn btn-default">+ Add More Member</button>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            <button type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Create
             </button>
         </form>
@@ -109,11 +109,11 @@
                 </div>
                 <div class="modal-body">
                     <span>This is your trip channel, please copy and share this link to your friend.</span><br/>
-                    <div class="well">{{address}}</div>
+                    <div class="well" id="dynamic">{{address}}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='kidtung/paymentlist'">Copy and Close</button>
+                    <button type="button" class="btn btn-primary" id="copy-dynamic" onclick="window.location.href='kidtung/paymentlist'">Copy and Close</button>
                 </div>
             </div>
         </div>
@@ -129,13 +129,48 @@
 =======================
 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--<script src="/js/jquery-1.9.0.js"></script>   -->
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/docs.min.js"></script>
+<!--<script src="/js/docs.min.js"></script>-->
+<!--<script src="/js/jquery.zclip.js"></script> -->
+<script src="/js/jquery.clipboard.js"></script>
+<script src="/js/jquery.clipboard.swf"></script>
 
 <script>
     $("#more-member").click(function () {
         $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-9"><input type="text" ng-model="member" name="member" class="form-control space-top"></div>')
     });
+    /*
+    $("#copy-dynamic").click(function () {
+    var test = $("#dynamic").text();
+    alert(test);
+    window.location.href='kidtung/paymentlist';
+    });
+      */
+     /*
+    $("#copy-dynamic").zclip({
+        path:"js/ZeroClipboard.swf",
+        copy:function(){
+        return $("#dynamic").text();
+        }
+    });
+    */
+    $('#copy-dynamic').clipboard({
+    path: 'js/jquery.clipboard.swf',
+    copy: function() {
+    var test = $('#dynamic').text();
+    alert('Text copied. Try to paste it now!' + test);
+    return $('#dynamic').text();
+    }
+    });
+    /*
+    $("#test2").zclip({
+    path:"js/ZeroClipboard.swf",
+    copy:function(){
+    return $("#test1").text();
+    }
+    });
+    */
 </script>
 </body>
 </html>
