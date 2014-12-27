@@ -3,7 +3,6 @@ var kidtungApp = angular.module('kidtungApp', []);
 
 // create angular controller and pass in $scope and $http
 function createTripController($scope, $http) {
-    //$scope.formData = {};
 
     // process the form
     $scope.processForm = function () {
@@ -26,6 +25,23 @@ function createTripController($scope, $http) {
         })
             .success(function (data) {
                 $scope.address = data;
+            });
+    };
+
+    $scope.validateTripName = function () {
+        $http.head('/api/kidtung/trips/' + $scope.name).
+            success(function(data, status, headers, config) {
+                $scope.hasError = true;
+                $scope.validateTripMessage = "Trip name "+ $scope.name +" is not available";
+            }).
+            error(function(data, status, headers, config) {
+                if(status == 404) {
+                    $scope.hasError = false;
+                    $scope.validateTripMessage = '';
+                } else {
+                    $scope.hasError = true;
+                    $scope.validateTripMessage = 'Server is not available';
+                }
             });
     };
 }

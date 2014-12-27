@@ -77,7 +77,7 @@ public class App {
 
             TripDAO dao = new TripDAO();
             Trip trip = dao.loadTripByCode(tripCode);
-            if(trip == null) {
+            if (trip == null) {
                 new ModelAndView(null, "notfound.html");
             }
             return new ModelAndView(null, "summary.html");
@@ -254,9 +254,19 @@ public class App {
             }
         }, json());
 
-        get("/api/kidtung/trips", (request, response) -> {
-            return new KidtungMock().mockTrip();
-        }, json());
+        head("/api/kidtung/trips/:tripcode", (request, response) -> {
+            String tripCode = request.params(":tripcode");
+            log.info(tripCode);
+
+            TripDAO dao = new TripDAO();
+            Trip trip = dao.loadTripByCode(tripCode);
+            if(trip == null) {
+                response.status(404);
+            } else {
+                response.status(200);
+            }
+            return "";
+        });
 
         get("/api/kidtung/trips/:code", (request, response) -> {
             TripDAO tripDAO = new TripDAO();

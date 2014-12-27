@@ -52,10 +52,12 @@
         <h3 class="text-muted">KIDTUNG</h3>
     </div>
     -->
-    <!--<div class="alert alert-danger alert-dismissible" role="alert">-->
-        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-        <!--<strong>Error!</strong> This trip name is not available.-->
-    <!--</div>-->
+    <div ng-if="hasError == true">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error! </strong>{{validateTripMessage}}
+        </div>
+    </div>
     <div class="row marketing">
         <h1>Welcome to KIDTUNG</h1>
         <p class="lead">Kidtung is an application to manage and calculate expend during the trip.</p>
@@ -66,7 +68,7 @@
             <div class="form-group">
                 <label for="inputName" class="col-sm-3 control-label" id="test1">Trip Name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="name" id="inputName" placeholder="eg. changmai_trip">
+                    <input type="text" class="form-control" ng-model="name" ng-change="validateTripName()" id="inputName" placeholder="eg. changmai_trip">
                 </div>
             </div>
             <div class="form-group">
