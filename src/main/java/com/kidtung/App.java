@@ -136,6 +136,31 @@ public class App {
             return expendList;
         }, json());
 
+        get("/api/kidtung/trips/:code/members/:name/expends/:expendCode", "application/json", (request, response) -> {
+            log.info("GET /api/kidtung/trips/:code/members/:name/expends");
+            String name = request.params(":name");
+            String tripCode = request.params(":code");
+            String expendCode = request.params(":expendCode");
+            List<Expend> expendList = new ArrayList();
+            TripDAO tripDAO = new TripDAO();
+            List<Member> memberList = tripDAO.loadTripByCode(tripCode).getMemberList();
+            Expend result = null;
+            for (int i = 0; i < memberList.size(); i++) {
+                Member member = memberList.get(i);
+                if (name.equals(member.getName())) {
+                    expendList = member.getExpendList();
+                    for(Expend expend : expendList) {
+                        if(expendCode.equalsIgnoreCase(expend.getCode())) {
+                            log.debug("Found expend code {}", expend.getCode());
+                            return expend;
+                        }
+                    }
+                }
+            }
+            response.status(404);
+            return null;
+        }, json());
+
         post("/api/kidtung/trips/:code/members/:name/expends", (request, response) -> {
             log.info("POST /api/kidtung/trips/:code/members/:name/expends");
             String code = request.params(":code");
@@ -182,7 +207,7 @@ public class App {
                         if (id.equals(expendRow.getCode())) {
                             expendRow.setItem(expend.getItem());
                             expendRow.setPrice(expend.getPrice());
-                            expendRow.setDate(expendRow.getDate());
+                            expendRow.setDate(expend.getDate());
                             break;
                         }
                     }

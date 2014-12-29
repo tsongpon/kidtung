@@ -33,7 +33,7 @@
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
-    <script src="/js/kidtungControllers.js"></script>
+    <script src="/js/kidtung.js"></script>
 </head>
 
 <body ng-app="kidtungApp" ng-controller="summaryController">
@@ -61,7 +61,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <h4>Total Balance : {{total}} &#3647;</h4>
+                <h4>Total Balance : {{total|currency:""}} &#3647;</h4>
                 <table id="tbl-summary" class="table">
                     <thead>
                         <tr>
@@ -74,8 +74,8 @@
                         <tr ng-repeat="each in totalForEach">
                             <td><span class="label label-pink">{{each.memberName}}</span></td>
                             <td>{{each.pay}}&#3647;</td>
-                            <td ng-if="each.balance < 0"><span class="txt-red">{{each.balance}} &#3647;</span></td>
-                            <td ng-if="each.balance >= 0"><span class="txt-green">{{each.balance}} &#3647;</span></td>
+                            <td ng-if="each.balance < 0"><span class="txt-red">{{each.balance|currency:""}} &#3647;</span></td>
+                            <td ng-if="each.balance >= 0"><span class="txt-green">{{each.balance|currency:""}} &#3647;</span></td>
                         </tr>
                         <!--<tr>-->
                             <!--<td><span class="label label-green">Bee</span></td>-->

@@ -34,7 +34,7 @@
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
-    <script src="/js/kidtungControllers.js"></script>
+    <script src="/js/kidtung.js"></script>
 </head>
 
 <body ng-app="kidtungApp" ng-controller="addExpendController">
@@ -61,10 +61,10 @@
                     <tr ng-repeat="expend in expends">
                         <td><span class="label label-blue">{{expend.name}}</span></td>
                         <td>{{expend.item}}</td>
-                        <td>{{expend.price}}</td>
+                        <td>{{expend.price | currency:""}}</td>
                         <td>&#3647; </td>
-                        <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                        <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                        <td><button type="button" ng-click='editExpend(expend.code, expend.name)' class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        <td><button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                     </tr>
                 </table>
             </span>
@@ -73,7 +73,7 @@
                 <tr>
                     <td></td>
                     <td>Total</td>
-                    <td>{{total}}</td>
+                    <td>{{total|currency:""}}</td>
                     <td>&#3647; </td>
                 </tr>
             </table>
@@ -90,7 +90,7 @@
                     <h4 class="modal-title" id="myModalLabel">New Expand</h4>
                 </div>
                 <div class="modal-body">
-
+                    <input type="hidden" ng-model="code">
                     <div class="form-group">
                         <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
                         <div class="col-sm-9">

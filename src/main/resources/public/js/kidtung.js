@@ -16,7 +16,6 @@ function createTripController($scope, $http) {
             method: 'PUT',
             url: '/api/kidtung/trips/' + $scope.name,
             data: {
-                id: 4,
                 name: $scope.name,
                 description: $scope.desc,
                 members: mems
@@ -49,30 +48,85 @@ function createTripController($scope, $http) {
 // create angular controller and pass in $scope and $http
 function addExpendController($scope, $http) {
 
+    $scope.deleteExpend = function(expendCode, memberName) {
+        var path = window.location.pathname;
+        var tripCode = path.split("/")[2];
+        $http.delete('/api/kidtung/trips/'+tripCode+'/members/'+memberName+'/expends/'+expendCode).
+            success(function (data, status, headers, config) {
+                initPaymentList($scope, $http);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    $scope.editExpend = function(expendCode, memberName) {
+        var path = window.location.pathname;
+        var tripCode = path.split("/")[2];
+        $http.get('/api/kidtung/trips/'+tripCode+'/members/'+memberName+'/expends/'+expendCode).
+            success(function (data, status, headers, config) {
+                $scope.name = data.name;
+                $scope.purpose = data.item;
+                $scope.price = data.price;
+                $scope.date = data.date;
+                $scope.code = data.code;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
 // process the form
     $scope.expendForm = function () {
         var path = window.location.pathname;
         var tripCode = path.split("/")[2];
-        $http({
-            method: 'POST',
-            url: '/api/kidtung/trips/'+tripCode+'/members/'+$scope.name+'/expends',
-            data: {
-                name: $scope.name,
-                item: $scope.purpose,
-                price: $scope.price,
-                date: $scope.date
-            },  // pass in data as strings
-            headers: {'Content-Type': 'application/json'}  // set the headers so angular passing info as form data (not request payload)
-        })
-            .success(function (data) {
+        if($scope.code=='' || $scope.code==null) {
+            $http({
+                method: 'POST',
+                url: '/api/kidtung/trips/' + tripCode + '/members/' + $scope.name + '/expends',
+                data: {
+                    name: $scope.name,
+                    item: $scope.purpose,
+                    price: $scope.price,
+                    date: $scope.date
+                },  // pass in data as strings
+                headers: {'Content-Type': 'application/json'}  // set the headers so angular passing info as form data (not request payload)
+            }).success(function (data) {
+                //$scope.address = data;
+                $('#newExpend').modal('hide');
+                $scope.name=null;
+                $scope.purpose = null;
+                $scope.price = null;
+                $scope.date = null;
+                $scope.code = null;
+                initPaymentList($scope, $http);
+            });
+        } else {
+            $http({
+                method: 'PUT',
+                url: '/api/kidtung/trips/' + tripCode + '/members/' + $scope.name + '/expends/'+$scope.code,
+                data: {
+                    name: $scope.name,
+                    item: $scope.purpose,
+                    price: $scope.price,
+                    date: $scope.date
+                },  // pass in data as strings
+                headers: {'Content-Type': 'application/json'}  // set the headers so angular passing info as form data (not request payload)
+            }).success(function (data) {
                 //$scope.address = data;
                 $('#newExpend').modal('hide');
                 $scope.purpose = null;
                 $scope.price = null;
                 $scope.date = null;
+                $scope.code = null;
+                $scope.name = null;
                 initPaymentList($scope, $http);
             });
+        }
     };
+
 
     initPaymentList($scope, $http);
     var path = window.location.pathname;

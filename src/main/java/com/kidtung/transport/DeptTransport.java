@@ -6,7 +6,7 @@ package com.kidtung.transport;
 public class DeptTransport {
     private String from;
     private String to;
-    private String amount;
+    private double amount;
 
     public String getFrom() {
         return from;
@@ -24,11 +24,11 @@ public class DeptTransport {
         this.to = to;
     }
 
-    public String getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }
