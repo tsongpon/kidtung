@@ -31,8 +31,8 @@ function createTripController($scope, $http) {
     $scope.validateTripName = function () {
         $http.head('/api/kidtung/trips/' + $scope.name).
             success(function(data, status, headers, config) {
-                $scope.hasError = true;
                 $scope.validateTripMessage = "Trip name "+ $scope.name +" is not available";
+                $scope.hasError = true;
             }).
             error(function(data, status, headers, config) {
                 if(status == 404) {
@@ -67,6 +67,9 @@ function addExpendController($scope, $http) {
             .success(function (data) {
                 //$scope.address = data;
                 $('#newExpend').modal('hide');
+                $scope.purpose = null;
+                $scope.price = null;
+                $scope.date = null;
                 initPaymentList($scope, $http);
             });
     };
