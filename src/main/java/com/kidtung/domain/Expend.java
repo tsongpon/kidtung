@@ -1,5 +1,9 @@
 package com.kidtung.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Expend {
@@ -7,7 +11,7 @@ public class Expend {
     private String name;
     private String item;
     private Double price;
-    private Date payDate;
+    private Date date;
 
     public String getCode() {
         return code;
@@ -33,19 +37,25 @@ public class Expend {
         this.price = price;
     }
 
-    public Date getPayDate() {
-        return payDate;
-    }
-
-    public void setPayDate(Date payDate) {
-        this.payDate = payDate;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @JsonIgnore
+    public String getDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
     }
 }

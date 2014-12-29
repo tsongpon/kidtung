@@ -1,6 +1,7 @@
 package com.kidtung.util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kidtung.domain.Expend;
 import com.kidtung.domain.Member;
 import com.kidtung.domain.Trip;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import spark.ResponseTransformer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public final class KidtungUtil {
 
@@ -21,7 +23,10 @@ public final class KidtungUtil {
     }
 
     public static String toJson(Object object) {
-        return new Gson().toJson(object);
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        return gson.toJson(object);
     }
 
     public static ResponseTransformer json() {
@@ -33,7 +38,10 @@ public final class KidtungUtil {
     }
 
     public static Expend toExpenseObj(String jsonStr){
-        return new Gson().fromJson(jsonStr, Expend.class);
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        return gson.fromJson(jsonStr, Expend.class);
     }
 
 
@@ -55,6 +63,14 @@ public final class KidtungUtil {
             trip.getMemberList().add(member);
         }
         return trip;
+    }
+
+    public static String randomColor() {
+        String [] colors = {"blue", "green", "pink", "yellow", "red", "violet", "orange", "gray", "brown"};
+        Random rand = new Random();
+        int randomNum = rand.nextInt((8 - 0) + 1) + 0;
+
+        return colors[randomNum];
     }
 
 }

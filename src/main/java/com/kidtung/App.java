@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.kidtung.util.KidtungUtil.json;
 import static spark.Spark.*;
@@ -104,10 +107,12 @@ public class App {
             log.info("GET /api/kidtung/trips/" + request.params(":code") + "/expends");
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+
+
             if (trip != null) {
                 List<Expend> expendListAll = new ArrayList<>();
                 trip.getMemberList().stream().forEach(m -> expendListAll.addAll(m.getExpendList()));
-                return expendListAll;
+                return expendListAll.stream().collect(Collectors.groupingBy(Expend::getDateString));
             }else{
                 return "Sorry, Trip not found.";
             }
@@ -138,7 +143,6 @@ public class App {
             log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
             expend.setCode(KidtungUtil.generateRandomCode(3));
-            expend.setPayDate(new Date());
 
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
@@ -178,7 +182,7 @@ public class App {
                         if (id.equals(expendRow.getCode())) {
                             expendRow.setItem(expend.getItem());
                             expendRow.setPrice(expend.getPrice());
-                            expendRow.setPayDate(expendRow.getPayDate());
+                            expendRow.setDate(expendRow.getDate());
                             break;
                         }
                     }

@@ -29,26 +29,26 @@ public class KidtungMock {
             Expend gas = new Expend();
             gas.setCode(KidtungUtil.generateRandomCode(3));
             gas.setItem("Gas");
-            gas.setPayDate(new Date());
+            gas.setDate(new Date());
             gas.setPrice(1700.00);
             tumExpends.add(gas);
 
             Expend zoo = new Expend();
             zoo.setCode(KidtungUtil.generateRandomCode(3));
             zoo.setItem("zoo");
-            zoo.setPayDate(new Date());
+            zoo.setDate(new Date());
             zoo.setPrice(2500.00);
             tumExpends.add(zoo);
 
             Expend amazon = new Expend();
             amazon.setCode(KidtungUtil.generateRandomCode(3));
             amazon.setItem("amazon");
-            amazon.setPayDate(new Date());
+            amazon.setDate(new Date());
             amazon.setPrice(250.00);
             tumExpends.add(amazon);
 
             Expend dinner = new Expend();
-            dinner.setPayDate(new Date());
+            dinner.setDate(new Date());
             dinner.setItem("dinner");
             dinner.setPrice(2500.00);
             dinner.setCode(KidtungUtil.generateRandomCode(3));
@@ -65,12 +65,12 @@ public class KidtungMock {
             Expend lunch = new Expend();
             lunch.setCode(KidtungUtil.generateRandomCode(3));
             lunch.setItem("lunch");
-            lunch.setPayDate(new Date());
+            lunch.setDate(new Date());
             lunch.setPrice(1200.00);
             pangExpends.add(lunch);
 
             Expend snack = new Expend();
-            snack.setPayDate(new Date());
+            snack.setDate(new Date());
             snack.setItem("snack");
             snack.setPrice(550.00);
             snack.setCode(KidtungUtil.generateRandomCode(3));
@@ -87,12 +87,12 @@ public class KidtungMock {
             Expend starbuck = new Expend();
             starbuck.setCode(KidtungUtil.generateRandomCode(3));
             starbuck.setItem("starbuck");
-            starbuck.setPayDate(new Date());
+            starbuck.setDate(new Date());
             starbuck.setPrice(2200.00);
             taiExpends.add(starbuck);
 
             Expend snack = new Expend();
-            snack.setPayDate(new Date());
+            snack.setDate(new Date());
             snack.setItem("snack");
             snack.setPrice(750.00);
             snack.setCode(KidtungUtil.generateRandomCode(3));
@@ -127,7 +127,7 @@ public class KidtungMock {
             Expend planTicket = new Expend();
             planTicket.setCode(KidtungUtil.generateRandomCode(3));
             planTicket.setItem("planTicket");
-            planTicket.setPayDate(new Date());
+            planTicket.setDate(new Date());
             planTicket.setPrice(200000.00);
             somExpends.add(planTicket);
 

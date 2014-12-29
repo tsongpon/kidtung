@@ -55,30 +55,19 @@
         <div class="col-lg-12">
             <h4>Payment List</h4>
             <button type="button" class="btn btn-success btn-add-payment" data-toggle="modal" data-target="#newExpend">+ Add New Expend</button>
-
-            <h5 class="show-date" style="margin-top: 30px;">1/1/14</h5>
-            <table class="table paymentlist">
-                <tr ng-repeat="expend in allExpends">
-                    <td><span class="label label-pink">{{expend.name}}</span></td>
-                    <td>{{expend.item}}</td>
-                    <td>{{expend.price}}</td>
-                    <td>&#3647; </td>
-                    <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                    <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
-                </tr>
-            </table>
-
-            <!--<h5 class="show-date">2/1/14</h5>-->
-            <!--<table class="table paymentlist">-->
-                <!--<tr>-->
-                    <!--<td><span class="label label-blue">Ni</span></td>-->
-                    <!--<td>Breakfast</td>-->
-                    <!--<td>120</td>-->
-                    <!--<td>&#3647; </td>-->
-                    <!--<td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>-->
-                    <!--<td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>-->
-                <!--</tr>-->
-            <!--</table>-->
+            <span ng-repeat = '(key, expends) in allExpends'>
+                <h5 class="show-date" style="margin-top: 30px;">{{key}}</h5>
+                <table class="table paymentlist">
+                    <tr ng-repeat="expend in expends">
+                        <td><span class="label label-blue">{{expend.name}}</span></td>
+                        <td>{{expend.item}}</td>
+                        <td>{{expend.price}}</td>
+                        <td>&#3647; </td>
+                        <td><button type="button" class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        <td><button type="button" class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    </tr>
+                </table>
+            </span>
 
             <table class="table row-total">
                 <tr>
@@ -105,7 +94,7 @@
                     <div class="form-group">
                         <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
                         <div class="col-sm-9">
-                            <select id="inputWhoPaid" class="form-control" ng-model="name">
+                            <select id="inputWhoPaid" required class="form-control" ng-model="name">
                                 <option value="">Please select</option>
                                 <option ng-repeat="eachMember in allMember" value="{{eachMember.name}}">{{eachMember.name}}</option>
                             </select>
@@ -114,14 +103,14 @@
                     <div class="form-group">
                         <label for="inputPurpose" class="col-sm-3 control-label">Purpose</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputPurpose" ng-model="purpose" placeholder="eg. Gas, Museum fee, ...">
+                            <input type="text" class="form-control" id="inputPurpose" required ng-model="purpose" placeholder="eg. Gas, Museum fee, ...">
                         </div>
                     </div>
                     <div class="form-group">
                         <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                            <input type="text" class="form-control" id="inputPrice" ng-model="price" placeholder="Amount">
+                            <input type="number" step="any" class="form-control" required id="inputPrice" ng-model="price" placeholder="Amount">
                             <div class="input-group-addon">&#3647;</div>
                             </div>
                         </div>
@@ -130,8 +119,8 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                            <input type="text" class="form-control date-picker" id="inputDate" ng-model="date" placeholder="">
-                            <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
+                            <input type="date" class="form-control" required id="inputDate" ng-model="date" placeholder="">
+                            <!--<div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>-->
 
                             </div>
                         </div>
