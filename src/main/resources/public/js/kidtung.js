@@ -163,6 +163,7 @@ var initPaymentList = function ($scope, $http) {
 
     $http.get('/api/kidtung/trips/'+tripCode+'/reports').
         success(function (data, status, headers, config) {
+            $scope.tripAverage = data.average;
             $scope.total = data.total;
         }).
         error(function (data, status, headers, config) {
@@ -185,6 +186,7 @@ var initSummary = function ($scope, $http) {
 
     $http.get('/api/kidtung/trips/'+tripCode+'/reports').
         success(function (data, status, headers, config) {
+            $scope.tripAverage = data.average;
             $scope.total = data.total;
         }).
         error(function (data, status, headers, config) {
