@@ -55,8 +55,7 @@ public class DeptService {
         for(MemberDept positiveDept : positiveMember) {
             while(positiveDept.getBalance() != 0) {
                 for(MemberDept negDept : negativeMember) {
-
-                    if(negDept.getBalance() == positiveDept.getBalance()) {
+                    if (Math.abs(negDept.getBalance()) == Math.abs(positiveDept.getBalance())) {
                         DeptTransport dept = new DeptTransport();
                         dept.setFrom(negDept.getNane());
                         dept.setTo(positiveDept.getNane());
@@ -64,33 +63,24 @@ public class DeptService {
                         deptTransports.add(dept);
                         positiveDept.setBalance(0);
                         negDept.setBalance(0);
-                    }
-                    if(negDept.getBalance() > positiveDept.getBalance()) {
+                    } else {
                         DeptTransport dept = new DeptTransport();
                         dept.setFrom(negDept.getNane());
                         dept.setTo(positiveDept.getNane());
-                        dept.setAmount(positiveDept.getBalance());
-                        deptTransports.add(dept);
-                        negDept.setBalance(negDept.getBalance() + positiveDept.getBalance());
-                        positiveDept.setBalance(0);
-                    } else {
-                        if(negDept.getBalance() < positiveDept.getBalance()) {
-                            DeptTransport dept = new DeptTransport();
-                            dept.setFrom(negDept.getNane());
-                            dept.setTo(positiveDept.getNane());
+                        if(Math.abs(negDept.getBalance()) > Math.abs(positiveDept.getBalance())) {
+                            dept.setAmount(positiveDept.getBalance());
+                            negDept.setBalance(negDept.getBalance() + positiveDept.getBalance());
+                            positiveDept.setBalance(0);
+                        } else {
                             dept.setAmount(Math.abs(negDept.getBalance()));
-                            deptTransports.add(dept);
                             positiveDept.setBalance(positiveDept.getBalance() + negDept.getBalance());
                             negDept.setBalance(0);
                         }
+                        deptTransports.add(dept);
                     }
                 }
             }
         }
-
-        //memberDepts.stream().sorted((p1, p2) -> Double.compare(p1.getBalance(), p2.getBalance())).collect(Collectors.toList());
-
         return deptTransports;
-
     }
 }

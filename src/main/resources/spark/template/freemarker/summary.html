@@ -61,7 +61,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <h4>Total Balance : {{total|currency:""}} &#3647;</h4>
+                <h4>Total Balance : {{total|currency:""}} ({{tripAverage|currency:""}}) &#3647;</h4>
                 <table id="tbl-summary" class="table">
                     <thead>
                         <tr>
@@ -93,18 +93,18 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
                 <table id="tbl-debt" class="table">
-                    <tr>
-                        <td><span class="label label-pink">Pang</span></td>
+                    <tr ng-repeat="dept in depts">
+                        <td><span class="label label-pink">{{dept.from}}</span></td>
                         <td>pay to <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
-                        <td><span class="label label-blue">Ni</span></td>
-                        <td>300 &#3647;</td>
+                        <td><span class="label label-blue">{{dept.to}}</span></td>
+                        <td>{{dept.amount|currency:""}} &#3647;</td>
                     </tr>
-                    <tr>
-                        <td><span class="label label-green">Bee</span></td>
-                        <td>pay to <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
-                        <td><span class="label label-blue">Ni</span></td>
-                        <td>100 &#3647;</td>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<td><span class="label label-green">Bee</span></td>-->
+                        <!--<td>pay to <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>-->
+                        <!--<td><span class="label label-blue">Ni</span></td>-->
+                        <!--<td>100 &#3647;</td>-->
+                    <!--</tr>-->
 
                 </table>
             </div>

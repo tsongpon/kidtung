@@ -2,6 +2,7 @@ package com.kidtung;
 
 import com.kidtung.dao.TripDAO;
 import com.kidtung.domain.*;
+import com.kidtung.service.DeptService;
 import com.kidtung.transport.TripRequestTransport;
 import com.kidtung.util.KidtungUtil;
 import org.slf4j.Logger;
@@ -425,5 +426,12 @@ public class App {
             }
             return reportList;
         }, json());
+
+        get("/api/kidtung/trips/:code/dept", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            Trip trip = tripDAO.loadTripByCode(request.params(":code"));
+            return new DeptService().calDept(trip);
+        }, json());
     }
+
 }

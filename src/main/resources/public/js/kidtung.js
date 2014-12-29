@@ -193,4 +193,13 @@ var initSummary = function ($scope, $http) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
+
+    $http.get('/api/kidtung/trips/'+tripCode+'/dept').
+        success(function (data, status, headers, config) {
+            $scope.depts = data;
+        }).
+        error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
 };
