@@ -14,6 +14,8 @@ import java.util.Random;
 
 public final class KidtungUtil {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private KidtungUtil() {
         //intentional
     }
@@ -24,7 +26,7 @@ public final class KidtungUtil {
 
     public static String toJson(Object object) {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
+                .setDateFormat(DATE_FORMAT)
                 .create();
         return gson.toJson(object);
     }
@@ -39,7 +41,7 @@ public final class KidtungUtil {
 
     public static Expend toExpenseObj(String jsonStr){
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
+                .setDateFormat(DATE_FORMAT)
                 .create();
         return gson.fromJson(jsonStr, Expend.class);
     }

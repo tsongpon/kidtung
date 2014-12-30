@@ -29,15 +29,15 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- cdn for modernizr, if you haven't included it already -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-    <!-- polyfiller file to detect and load polyfills -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
-    <script>
-        webshims.setOptions('waitReady', false);
-        webshims.setOptions('forms-ext', {types: 'date'});
-        webshims.polyfill('forms forms-ext');
-    </script>
+    <!--&lt;!&ndash; cdn for modernizr, if you haven't included it already &ndash;&gt;-->
+    <!--<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>-->
+    <!--&lt;!&ndash; polyfiller file to detect and load polyfills &ndash;&gt;-->
+    <!--<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>-->
+    <!--<script>-->
+        <!--webshims.setOptions('waitReady', false);-->
+        <!--webshims.setOptions('forms-ext', {types: 'date'});-->
+        <!--webshims.polyfill('forms forms-ext');-->
+    <!--</script>-->
 
     <!-- LOAD JQUERY -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -129,9 +129,8 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                            <input type="date" class="form-control" required id="inputDate" placeholder="" ng-model="date">
-                            <!--<div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>-->
-
+                                <input class="form-control" type="date" id="inputDate" ng-model="date" placeholder="">
+                                <!--<div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>-->
                             </div>
                         </div>
                     </div>
@@ -161,7 +160,7 @@
 <script src="/js/docs.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script>
-$(".date-picker").datepicker();
+//$(".date-picker").datepicker();
 
 </script>
 </body>

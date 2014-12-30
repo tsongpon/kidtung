@@ -168,6 +168,7 @@ public class App {
             log.info("request.body()  = " + request.body());
             Expend expend = KidtungUtil.toExpenseObj(request.body());
             expend.setCode(KidtungUtil.generateRandomCode(3));
+            //expend.setDate(new Date());
 
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(code);
