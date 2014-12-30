@@ -29,6 +29,16 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+    </script>
+
     <!-- LOAD JQUERY -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <!-- LOAD ANGULAR -->
@@ -119,7 +129,7 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                            <input type="date" class="form-control" required id="inputDate" ng-model="date" placeholder="">
+                            <input type="date" class="form-control" required id="inputDate" ng-model="date">
                             <!--<div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>-->
 
                             </div>
