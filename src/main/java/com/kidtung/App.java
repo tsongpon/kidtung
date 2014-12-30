@@ -302,6 +302,11 @@ public class App {
             return tripDAO.loadTripByCode(request.params(":code"));
         }, json());
 
+        get("/api/kidtung/trips", (request, response) -> {
+            TripDAO tripDAO = new TripDAO();
+            return tripDAO.loadTrips();
+        }, json());
+
         put("/api/kidtung/trips/:code", (request, response) -> {
             log.debug("request body : {}", request.body());
             TripRequestTransport transport = KidtungUtil.toTripTransport(request.body());
