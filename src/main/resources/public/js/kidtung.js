@@ -1,5 +1,5 @@
 // define angular module/app
-var kidtungApp = angular.module('kidtungApp', ['ngRoute']);
+var kidtungApp = angular.module('kidtungApp', []);
 
 // create angular controller and pass in $scope and $http
 function createTripController($scope, $http) {
