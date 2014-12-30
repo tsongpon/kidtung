@@ -60,7 +60,7 @@ public class DeptService {
 
         //Now we have 2 listm positive and negative
         for(MemberDept positiveDept : positiveMember) {
-            while(positiveDept.getBalance().compareTo(BigDecimal.ZERO) != 0) {
+            while(positiveDept.getBalance().compareTo(BigDecimal.ZERO) != 0 && !isAllElementBalanceZero(negativeMember)) {
                 for(MemberDept negDept : negativeMember) {
                     DeptTransport dept = new DeptTransport();
                     dept.setFrom(negDept.getNane());
@@ -79,6 +79,7 @@ public class DeptService {
                             dept.setAmount(negDept.getBalance().abs());
                             positiveDept.setBalance(positiveDept.getBalance().add(negDept.getBalance()));
                             negDept.setBalance(BigDecimal.ZERO);
+                            //negativeMember.remove(negDept);
                         }
                         deptTransports.add(dept);
                     }
@@ -86,5 +87,14 @@ public class DeptService {
             }
         }
         return deptTransports;
+    }
+
+    private boolean isAllElementBalanceZero(List<MemberDept> memberDepts) {
+        for(MemberDept mem : memberDepts) {
+            if(mem.getBalance().compareTo(BigDecimal.ZERO) != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

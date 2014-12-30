@@ -18,7 +18,7 @@ public class DeptServiceTest {
     @Ignore("this test will call to real db")
     @Test
     public void testCal() {
-        Trip trip = new TripDAO().loadTripByCode("moon");
+        Trip trip = new TripDAO().loadTripByCode("test");
         List<DeptTransport> deptTransports = new DeptService().calDept(trip);
         log.debug(new Gson().toJson(deptTransports));
     }
