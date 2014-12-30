@@ -432,6 +432,11 @@ public class App {
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
             return new DeptService().calDept(trip);
         }, json());
-    }
 
+        exception(Exception.class, (e, request, response) -> {
+            log.error(e.getMessage(), e);
+            response.status(500);
+            response.body(e.getMessage());
+        });
+    }
 }

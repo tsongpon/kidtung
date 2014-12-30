@@ -1,5 +1,5 @@
 // define angular module/app
-var kidtungApp = angular.module('kidtungApp', []);
+var kidtungApp = angular.module('kidtungApp', ['ngRoute']);
 
 // create angular controller and pass in $scope and $http
 function createTripController($scope, $http) {
@@ -21,10 +21,11 @@ function createTripController($scope, $http) {
                 members: mems
             },  // pass in data as strings
             headers: {'Content-Type': 'application/json'}  // set the headers so angular passing info as form data (not request payload)
-        })
-            .success(function (data) {
-                $scope.address = data;
-            });
+        }).success(function (data) {
+            $scope.address = data;
+        }).error(function (data) {
+            alert("Error : "+data);
+        });
     };
 
     $scope.validateTripName = function () {
@@ -102,6 +103,8 @@ function addExpendController($scope, $http) {
                 $scope.date = null;
                 $scope.code = null;
                 initPaymentList($scope, $http);
+            }).error(function (data) {
+                alert("Error : "+data);
             });
         } else {
             $http({
@@ -123,6 +126,8 @@ function addExpendController($scope, $http) {
                 $scope.code = null;
                 $scope.name = null;
                 initPaymentList($scope, $http);
+            }).error(function (data) {
+                alert("Error : "+data);
             });
         }
     };

@@ -55,18 +55,17 @@ public class DeptService {
         for(MemberDept positiveDept : positiveMember) {
             while(positiveDept.getBalance() != 0) {
                 for(MemberDept negDept : negativeMember) {
+                    DeptTransport dept = new DeptTransport();
+                    dept.setFrom(negDept.getNane());
+                    dept.setTo(positiveDept.getNane());
                     if (Math.abs(negDept.getBalance()) == Math.abs(positiveDept.getBalance())) {
-                        DeptTransport dept = new DeptTransport();
-                        dept.setFrom(negDept.getNane());
-                        dept.setTo(positiveDept.getNane());
                         dept.setAmount(positiveDept.getBalance());
-                        deptTransports.add(dept);
+                        if(dept.getAmount() != 0) {
+                            deptTransports.add(dept);
+                        }
                         positiveDept.setBalance(0);
                         negDept.setBalance(0);
                     } else {
-                        DeptTransport dept = new DeptTransport();
-                        dept.setFrom(negDept.getNane());
-                        dept.setTo(positiveDept.getNane());
                         if(Math.abs(negDept.getBalance()) > Math.abs(positiveDept.getBalance())) {
                             dept.setAmount(positiveDept.getBalance());
                             negDept.setBalance(negDept.getBalance() + positiveDept.getBalance());
@@ -76,7 +75,9 @@ public class DeptService {
                             positiveDept.setBalance(positiveDept.getBalance() + negDept.getBalance());
                             negDept.setBalance(0);
                         }
-                        deptTransports.add(dept);
+                        if(dept.getAmount() != 0) {
+                            deptTransports.add(dept);
+                        }
                     }
                 }
             }
