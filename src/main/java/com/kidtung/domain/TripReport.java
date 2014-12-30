@@ -1,9 +1,11 @@
 package com.kidtung.domain;
 
+import java.math.BigDecimal;
+
 public class TripReport {
     int memberNo;
-    Double total;
-    Double average;
+    BigDecimal total;
+    BigDecimal average;
 
     public int getMemberNo() {
         return memberNo;
@@ -13,19 +15,19 @@ public class TripReport {
         this.memberNo = memberNo;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public Double getAverage() {
+    public BigDecimal getAverage() {
         return average;
     }
 
-    public void setAverage(Double average) {
+    public void setAverage(BigDecimal average) {
         this.average = average;
     }
 }

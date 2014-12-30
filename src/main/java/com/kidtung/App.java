@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
@@ -326,19 +328,18 @@ public class App {
             TripReport report = new TripReport();
             int memberNo = trip.getMemberList().size();
             report.setMemberNo(memberNo);
-            double price = 0.00;
+            BigDecimal price = new BigDecimal(0.0);
             for (Member member : trip.getMemberList()) {
                 for (Expend expend : member.getExpendList()) {
                     if (expend.getPrice() != null) {
-                        price = price + expend.getPrice();
+                        price = price.add(BigDecimal.valueOf(expend.getPrice()));
                         log.debug("expend: {}", expend.getPrice());
                         log.debug("price: {}", price);
                     }
                 }
             }
-            DecimalFormat decim = new DecimalFormat("0.00");
-            report.setTotal(Double.parseDouble(decim.format(price)));
-            report.setAverage(Double.parseDouble(decim.format(price / memberNo)));
+            report.setTotal(price);
+            report.setAverage(price.divide(BigDecimal.valueOf(memberNo), RoundingMode.HALF_UP));
             return report;
         }, json());
 
@@ -349,35 +350,35 @@ public class App {
             int memberNo = trip.getMemberList().size();
             DecimalFormat decim = new DecimalFormat("0.00");
             PersonalTripReport personalTripReport = new PersonalTripReport();
-            double price = 0.00;
+            BigDecimal price = new BigDecimal(0.00);
             for (Member member : trip.getMemberList()) {
                 for (Expend expend : member.getExpendList()) {
                     if (expend.getPrice() != null) {
-                        price = price + expend.getPrice();
+                        price = price.add(BigDecimal.valueOf(expend.getPrice()));
                         log.debug("expend: {}", expend.getPrice());
                         log.debug("price: {}", price);
                     }
                 }
             }
-            Double total = Double.parseDouble(decim.format(price));
-            Double avg = Double.parseDouble(decim.format(price / memberNo));
+            BigDecimal total = price;
+            BigDecimal avg = price.divide(BigDecimal.valueOf(memberNo), RoundingMode.HALF_UP);
             personalTripReport.setTotal(total);
             personalTripReport.setAverage(avg);
-            double personalPay = 0.00;
+            BigDecimal personalPay = new BigDecimal(0.00);
             for (Member member : trip.getMemberList()) {
                 if (request.params(":name").equals(member.getName())) {
                     for (Expend personExpend : member.getExpendList()) {
                         if (personExpend.getPrice() != null) {
-                            personalPay = personalPay + personExpend.getPrice();
+                            personalPay = personalPay.add(BigDecimal.valueOf(personExpend.getPrice()));
                             log.debug("expend: {}", personExpend.getPrice());
                             log.debug("price: {}", personalPay);
                         }
                     }
                 }
             }
-            Double pay = Double.parseDouble(decim.format(personalPay));
+            BigDecimal pay = personalPay;
             personalTripReport.setPay(pay);
-            Double balance = Double.parseDouble(decim.format(pay - avg));
+            BigDecimal balance = pay.subtract(avg);
             personalTripReport.setBalance(balance);
             return personalTripReport;
         }, json());
@@ -389,17 +390,17 @@ public class App {
             int memberNo = trip.getMemberList().size();
             DecimalFormat decim = new DecimalFormat("0.00");
             List<PersonalTripReport> reportList = new ArrayList<>();
-            double price = 0.00;
+            BigDecimal price = new BigDecimal(0.00);
             for (Member member : trip.getMemberList()) {
                 for (Expend expend : member.getExpendList()) {
                     if (expend.getPrice() != null) {
-                        price = price + expend.getPrice();
+                        price = price.add(BigDecimal.valueOf(expend.getPrice()));
                     }
                 }
 
             }
-            Double total = Double.parseDouble(decim.format(price));
-            Double avg = Double.parseDouble(decim.format(price / memberNo));
+            BigDecimal total = price;
+            BigDecimal avg = price.divide(BigDecimal.valueOf(memberNo), RoundingMode.HALF_UP);
 
             for (Member member : trip.getMemberList()) {
                 PersonalTripReport personalTripReport = new PersonalTripReport();
@@ -408,24 +409,24 @@ public class App {
                 personalTripReport.setAverage(avg);
                 personalTripReport.setMemberName(member.getName());
 
-                double personalPay = 0.00;
-                double payPrice = 0.00;
+                BigDecimal personalPay = BigDecimal.valueOf(0.00);
+                BigDecimal payPrice = BigDecimal.valueOf(0.00);
                 if (member.getExpendList().size() > 0) {
                     for (Expend personExpend : member.getExpendList()) {
                         if (personExpend.getPrice() != null) {
-                            payPrice = personExpend.getPrice();
+                            payPrice = BigDecimal.valueOf(personExpend.getPrice());
                             log.debug("expend: {}", payPrice);
                             log.debug("price: {}", personalPay);
-                            personalPay = personalPay + payPrice;
-                            Double pay = Double.parseDouble(decim.format(personalPay));
+                            personalPay = personalPay.add(payPrice);
+                            BigDecimal pay = personalPay;
                             personalTripReport.setPay(pay);
-                            Double balance = Double.parseDouble(decim.format(pay - avg));
+                            BigDecimal balance = pay.subtract(avg);
                             personalTripReport.setBalance(balance);
                         }
                     }
                 } else {
                     personalTripReport.setPay(payPrice);
-                    personalTripReport.setBalance(payPrice - avg);
+                    personalTripReport.setBalance(payPrice.subtract(avg));
                 }
                 reportList.add(personalTripReport);
             }

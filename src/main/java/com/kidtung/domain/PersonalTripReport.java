@@ -1,14 +1,15 @@
 package com.kidtung.domain;
 
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 
 public class PersonalTripReport {
     String memberName;
-    Double total;
-    Double average;
-    Double pay;
-    Double balance;
+    BigDecimal total;
+    BigDecimal average;
+    BigDecimal pay;
+    BigDecimal balance;
 
     public String getMemberName() {
         return memberName;
@@ -18,35 +19,35 @@ public class PersonalTripReport {
         this.memberName = memberName;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public Double getAverage() {
+    public BigDecimal getAverage() {
         return average;
     }
 
-    public void setAverage(Double average) {
+    public void setAverage(BigDecimal average) {
         this.average = average;
     }
 
-    public Double getPay() {
+    public BigDecimal getPay() {
         return pay;
     }
 
-    public void setPay(Double pay) {
+    public void setPay(BigDecimal pay) {
         this.pay = pay;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 }

@@ -1,12 +1,14 @@
 package com.kidtung.transport;
 
+import java.math.BigDecimal;
+
 /**
  *
  */
 public class DeptTransport {
     private String from;
     private String to;
-    private double amount;
+    private BigDecimal amount;
 
     public String getFrom() {
         return from;
@@ -24,11 +26,11 @@ public class DeptTransport {
         this.to = to;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 }

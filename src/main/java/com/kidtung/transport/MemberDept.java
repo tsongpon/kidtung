@@ -1,17 +1,19 @@
 package com.kidtung.transport;
 
+import java.math.BigDecimal;
+
 /**
  *
  */
 public class MemberDept {
-    private double balance;
+    private BigDecimal balance;
     private String nane;
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
