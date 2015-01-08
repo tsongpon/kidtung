@@ -44,6 +44,11 @@ function createTripController($scope, $http) {
                 }
             });
     };
+
+    $scope.openTrip = function() {
+        //window.open($scope.address, '_self ');
+        window.location.href=$scope.address;
+    }
 }
 
 // create angular controller and pass in $scope and $http
