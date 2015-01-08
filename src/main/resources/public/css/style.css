@@ -1,7 +1,6 @@
 /* Space out content a bit */
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 70px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -13,36 +12,59 @@ body {
 }
 
 /* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 10px;
-}
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-    padding-bottom: 19px;
-    margin-top: 0;
+    margin-top: 5px;
     margin-bottom: 0;
     line-height: 40px;
+    font-family: 'Oswald', sans-serif;
+    color: #000000;
 }
 h5.show-date {
     color: #808080;
 }
 .jumbotron {
     text-align: left;
+    background: #a8cbd5;
 }
 
 .space-top {
     margin-top: 15px;
 }
 
+.navbar-default {
+    background: #a8cbd5;
+}
+.nav-pills > li > a {
+    border-radius: 0px;
+    background: transparent;
+    color: #000000;
+    padding: 13px 15px;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {    background: transparent;
+    background: transparent;
+    border-bottom: 3px solid #519DA5;
+    border-radius: 0;
+    color: #000000;
+}
+.nav-pills > li > a:hover {
+    background: #519DA5;
+    color: #ffffff;
+    border-bottom: 3px solid #519DA5;
+}
+ul.nav {
+    margin-top: -5px;
+}
+
 .label-pink {
-    background: pink;
+    background: #DC6369;
 }
 .label-green {
-    background: limegreen;
+    background: #749A61;
 }
 .label-blue {
-    background: deepskyblue;
+    background: #8DCDE6;
 }
 .paymentlist td:first-child, .row-total td:first-child {
     width: 100px;
@@ -80,6 +102,16 @@ h5.show-date {
     text-align: right;
     padding-right: 150px;
 }
+.btn-default {
+    background: #5ca1ac;
+    border: 1px solid #5ca1ac;
+    color: #fff;
+}
+.btn-default:hover {
+    background: #2A909E;
+    border: 1px solid #2A909E;
+    color: #ffffff;
+}
 
 .btn-add-payment {
     position: absolute;
@@ -113,7 +145,7 @@ label.control-label span { cursor: pointer; }
     padding: 20px 10px;
 }
 .jumbotron .btn {
-font-family: 'Dosis', sans-serif;
+font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 14px;
     padding: 5px 20px;
@@ -121,19 +153,25 @@ font-family: 'Dosis', sans-serif;
 .jumbotron .btn-primary {
     font-size: 20px;
     padding: 10px 20px;
+    background : #DE8140;
+    border: 1px solid #D4703E;
+}
+.jumbotron .btn-primary:hover {
+    background: #E06C1F;
+    border: 1px solid #E06C1F;
 }
 
 .jumbotron h4 {
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 .txt-red {
-    color: red;
+    color: #BC2E30;
 }
 .txt-green {
-    color: limegreen;
+    color: #80A665;
 }
 .tab-content {
     margin-top: 20px;
@@ -167,9 +205,13 @@ font-family: 'Dosis', sans-serif;
     font-size: 20px;
 }
 .nav-tabs > li > a {
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
     font-weight: 500;
+    color: #2882A3;
+}
+.nav-tabs > li > a:hover {
+    background: #f0f0f0;
 }
 button.input-group-addon {
     float: left;
@@ -190,7 +232,7 @@ btn {
     font-family: 'Oswald', sans-serif;
 }
 .marketing .lead {
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 20px;
     color: #808080;
 }
@@ -198,12 +240,12 @@ form {
     text-align: left;
 }
 label {
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 16px;
     color: #555555;
 }
 h4, h3, nav, .btn-add-payment {
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Lato', sans-serif;
 
 }
 .col-lg-12 h4 {
@@ -213,6 +255,12 @@ h4, h3, nav, .btn-add-payment {
 }
 .btn-add-payment {
     font-size: 16px;
+    background : #DE8140;
+    border: 1px solid #D4703E;
+}
+.btn-add-payment:hover {
+    background: #E06C1F;
+    border: 1px solid #E06C1F;
 }
 .label {
     font-weight: normal;
@@ -229,17 +277,11 @@ h4, h3, nav, .btn-add-payment {
         padding-left: 0;
     }
     /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
+
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
         border-bottom: 0;
     }
-    .jumbotron .btn-default {
-        margin-top: 15px;
-    }
-
 }
 
 @media screen and (max-width: 768px) {
