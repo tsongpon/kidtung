@@ -16,6 +16,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
     <script src="/js/ie-emulation-modes-warning.js"></script>
 
@@ -59,7 +61,7 @@
         </div>
     </div>
     <div class="row marketing">
-        <h1>Welcome to KIDTUNG</h1>
+        <h1>KIDTUNG</h1>
         <p class="lead">Kidtung is an application to manage and calculate expend during the trip.</p>
     </div>
     <div class="jumbotron">
@@ -80,19 +82,19 @@
             <div id="memberlist">
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Member</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="text" required ng-model="member" name="member" class="form-control"  placeholder="">
+                    </div>
+                    <div class="col-sm-2" ng-init="scope = { isDisabled: false }">
+                        <button id="more-member" type="button" class="btn btn-default" style="width: 100%;"><span class="glyphicon glyphicon-plus"></span></span></button>
                     </div>
                 </div>
             </div>
-            <div class="form-group"  ng-init="scope = { isDisabled: false }">
-                <div class="col-sm-offset-2 col-sm-9">
-                    <button id="more-member" type="button" class="btn btn-default">+ Add More Member</button>
-                </div>
-            </div>
+            <div style="position: relative; margin: 0px auto; text-align: center;">
             <button ng-disabled="hasError" type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Create
             </button>
+            </div>
         </form>
         <!--<p><a class="btn btn-lg btn-success" href="kidtung/paymentlist" role="button">Create</a></p>-->
         <!-- Button trigger modal -->
@@ -122,7 +124,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; Company 2014</p>
+        <p>&copy; Hackaton 2014</p>
     </footer>
 
 </div> <!-- /container -->
@@ -140,7 +142,7 @@
 
 <script>
     $("#more-member").click(function () {
-        $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-9"><input type="text" ng-model="member" name="member" class="form-control space-top"></div>')
+        $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-7"><input type="text" ng-model="member" name="member" class="form-control space-top"></div>')
     });
     /*
     $("#copy-dynamic").click(function () {

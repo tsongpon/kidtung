@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
     <script src="/js/ie-emulation-modes-warning.js"></script>
 
@@ -44,7 +45,7 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="/kidtung/{{globalTripCode}}/paymentlist">Payment</a></li>
                 <li role="presentation" class="active"><a href="/kidtung/{{globalTripCode}}/summary">Summary</a></li>
-                <li role="presentation"><a href="#">Help</a></li>
+                <li role="presentation" class="help"><a href="#">Help</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">KIDTUNG</h3>
@@ -61,7 +62,8 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <h4>Total Balance : {{total|currency:""}} ({{tripAverage|currency:""}}) &#3647;</h4>
+                <h3>Total Balance : {{tripAverage|currency:""}} &#3647;</h3>
+                <h4>Total Amount : {{total|currency:""}} &#3647;</h4>
                 <table id="tbl-summary" class="table">
                     <thead>
                         <tr>
@@ -72,7 +74,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="each in totalForEach">
-                            <td><span class="label label-pink">{{each.memberName}}</span></td>
+                            <td><span class="label label-blue">{{each.memberName}}</span></td>
                             <td>{{each.pay}}&#3647;</td>
                             <td ng-if="each.balance < 0"><span class="txt-red">{{each.balance|currency:""}} &#3647;</span></td>
                             <td ng-if="each.balance >= 0"><span class="txt-green">{{each.balance|currency:""}} &#3647;</span></td>
@@ -113,7 +115,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; Company 2014</p>
+        <p>&copy; Hackton 2014</p>
     </footer>
 
 </div> <!-- /container -->

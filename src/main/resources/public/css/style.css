@@ -15,6 +15,7 @@ body {
 /* Custom page header */
 .header {
     border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -82,8 +83,8 @@ h5.show-date {
 
 .btn-add-payment {
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 15px;
+    top: -9px;
 }
 .date-form { margin: 10px; }
 label.control-label span { cursor: pointer; }
@@ -109,10 +110,24 @@ label.control-label span { cursor: pointer; }
 .jumbotron {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
+    padding: 20px 10px;
 }
 .jumbotron .btn {
-    padding: 14px 24px;
-    font-size: 21px;
+font-family: 'Dosis', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 20px;
+}
+.jumbotron .btn-primary {
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.jumbotron h4 {
+    font-family: 'Dosis', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 .txt-red {
     color: red;
@@ -152,18 +167,56 @@ label.control-label span { cursor: pointer; }
     font-size: 20px;
 }
 .nav-tabs > li > a {
+    font-family: 'Dosis', sans-serif;
     font-size: 18px;
     font-weight: 500;
 }
 button.input-group-addon {
     float: left;
 }
+btn {
+    border-radius: 2px;
+}
 /* Supporting marketing content */
 .marketing {
-    margin: 40px 0;
+    margin: 0px auto;
+    text-align: center;
+
 }
 .marketing p + h4 {
     margin-top: 28px;
+}
+.marketing h1 {
+    font-family: 'Oswald', sans-serif;
+}
+.marketing .lead {
+    font-family: 'Dosis', sans-serif;
+    font-size: 20px;
+    color: #808080;
+}
+form {
+    text-align: left;
+}
+label {
+    font-family: 'Dosis', sans-serif;
+    font-size: 16px;
+    color: #555555;
+}
+h4, h3, nav, .btn-add-payment {
+    font-family: 'Dosis', sans-serif;
+
+}
+.col-lg-12 h4 {
+    text-align: left;
+    margin-left: 15px;
+    color: #555555;
+}
+.btn-add-payment {
+    font-size: 16px;
+}
+.label {
+    font-weight: normal;
+    font-size: 100%;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -182,5 +235,33 @@ button.input-group-addon {
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
         border-bottom: 0;
+    }
+    .jumbotron .btn-default {
+        margin-top: 15px;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+.jumbotron label {
+        display: block;
+    }
+    .jumbotron .col-sm-7 {
+        float: left;
+        position: relative;
+        width: 75%;
+    }
+    .jumbotron .col-sm-2 {
+        float: left;
+        position: relative;
+        width: 25%;
+    }
+    .jumbotron .btn-primary {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .help {
+        display: none !important;
     }
 }

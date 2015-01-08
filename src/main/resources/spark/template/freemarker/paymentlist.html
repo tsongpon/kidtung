@@ -17,6 +17,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+
 
     <script src="/js/ie-emulation-modes-warning.js"></script>
 
@@ -55,13 +57,13 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="/kidtung/{{globalTripCode}}/paymentlist">Payment</a></li>
                 <li role="presentation"><a href="/kidtung/{{globalTripCode}}/summary">Summary</a></li>
-                <li role="presentation"><a href="#">Help</a></li>
+                <li role="presentation" class="help"><a href="#">Help</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">KIDTUNG</h3>
     </div>
 
-    <div class="row marketing">
+    <div class="row">
         <div class="col-lg-12">
             <h4>Payment List</h4>
             <button type="button" class="btn btn-success btn-add-payment" data-toggle="modal" data-target="#newExpend">+ Add New Expend</button>
@@ -97,7 +99,7 @@
                 <form ng-submit="expendForm()" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">New Expand</h4>
+                    <h4 class="modal-title" id="myModalLabel">New Expend</h4>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" ng-model="code">
@@ -147,7 +149,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; Company 2014</p>
+        <p>&copy; Hackaton 2014</p>
     </footer>
 
 </div> <!-- /container -->
