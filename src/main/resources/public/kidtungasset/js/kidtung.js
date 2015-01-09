@@ -33,6 +33,7 @@ function createTripController($scope, $http) {
             success(function(data, status, headers, config) {
                 $scope.validateTripMessage = "Trip name "+ $scope.name +" is not available";
                 $scope.hasError = true;
+                return false;
             }).
             error(function(data, status, headers, config) {
                 if(status == 404) {

@@ -103,6 +103,9 @@ public class App {
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
+        after((request, response) -> {
+            response.header("Cache-Control", "no-cache");
+        });
 
         //for expend
         get("/api/kidtung/trips/:code/expends", (request, response) -> {
@@ -317,7 +320,7 @@ public class App {
             TripDAO tripDAO = new TripDAO();
             tripDAO.save(trip);
             response.status(201);
-            response.body("Created");
+            response.body("http://" + request.host() + "/kidtung/" + trip.getCode());
             return "http://" + request.host() + "/kidtung/" + trip.getCode();
         });
 
