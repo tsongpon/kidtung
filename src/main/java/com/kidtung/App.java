@@ -103,10 +103,6 @@ public class App {
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
-        after((request, response) -> {
-            response.header("Cache-Control", "no-cache");
-        });
-
         //for expend
         get("/api/kidtung/trips/:code/expends", (request, response) -> {
             log.info("GET /api/kidtung/trips/" + request.params(":code") + "/expends");
