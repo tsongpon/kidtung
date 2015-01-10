@@ -100,7 +100,7 @@
     <div class="modal fade" id="newExpend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form ng-submit="expendForm()" class="form-horizontal">
+                <form ng-submit="expendForm()" name="addExpendForm" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">New Expend</h4>
@@ -110,7 +110,7 @@
                     <div class="form-group">
                         <label for="inputWhoPaid" class="col-sm-3 control-label">Who paid</label>
                         <div class="col-sm-9">
-                            <select id="inputWhoPaid" required class="form-control" ng-model="name">
+                            <select id="inputWhoPaid" required class="form-control" ng-model="name" name="name">
                                 <option value="">Please select</option>
                                 <option ng-repeat="eachMember in allMember" value="{{eachMember.name}}">{{eachMember.name}}</option>
                             </select>
@@ -119,14 +119,14 @@
                     <div class="form-group">
                         <label for="inputPurpose" class="col-sm-3 control-label">Purpose</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputPurpose" required ng-model="purpose" placeholder="eg. Gas, Museum fee, ...">
+                            <input type="text" class="form-control" id="inputPurpose" required ng-model="purpose" name="purpose" placeholder="eg. Gas, Museum fee, ...">
                         </div>
                     </div>
                     <div class="form-group">
                         <label  for="inputPrice" class="col-sm-3 control-label">Price</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                            <input type="number" step="any" class="form-control" required id="inputPrice" ng-model="price" placeholder="Amount">
+                            <input type="number" step="any" class="form-control" required id="inputPrice" ng-model="price" name="price" placeholder="Amount">
                             <div class="input-group-addon">&#3647;</div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input class="form-control" type="date" id="inputDate" ng-model="date" placeholder="">
+                                <input class="form-control" required type="date" id="inputDate" ng-model="date" name="date" placeholder="">
                                 <!--<div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>-->
                             </div>
                         </div>
@@ -143,7 +143,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" disabled ng-disabled="addExpendForm.name.$invalid || addExpendForm.purpose.$invalid || addExpendForm.price.$invalid || addExpendForm.date.$invalid" class="btn btn-primary">Save</button>
                     </div>
 
                 </div>

@@ -53,11 +53,11 @@
     </div>
     <div class="jumbotron">
         <h4>Create Group</h4>
-        <form ng-submit="processForm()" class="form-horizontal">
+        <form ng-submit="processForm()" class="form-horizontal" name="tripForm">
             <div class="form-group">
-                <label for="inputName" class="col-sm-3 control-label" id="test1">Trip Name</label>
+                <label for="name" class="col-sm-3 control-label" id="test1">Trip Name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="name" ng-change="validateTripName()" id="inputName" placeholder="eg. changmai_trip">
+                    <input type="text" required class="form-control" ng-model="name" ng-change="validateTripName()" name="name" id="name" placeholder="eg. changmai_trip">
                 </div>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div style="position: relative; margin: 0px auto; text-align: center;">
-            <button ng-disabled="hasError" type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            <button disabled ng-disabled="hasError || tripForm.name.$invalid || tripForm.member.$invalid" type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Create
             </button>
             </div>
