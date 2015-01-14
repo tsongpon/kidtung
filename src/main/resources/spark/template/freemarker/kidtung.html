@@ -12,16 +12,16 @@
     <title>Welcome to KIDTUNG</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/kidtungasset/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/kidtungasset/css/style.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="/kidtungasset/js/ie-emulation-modes-warning.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="/kidtungasset/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,7 +34,7 @@
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
-    <script src="/js/kidtung.js"></script>
+    <script src="/kidtungasset/js/kidtung.js"></script>
     <!-- PROCESS FORM WITH AJAX (NEW) -->
 </head>
 
@@ -48,16 +48,16 @@
         </div>
     </div>
     <div class="row marketing">
-        <h1><img src="/img/calculator.png" style="width: 60px; height: 60px;"/>KIDTUNG</h1>
+        <h1><img src="/kidtungasset/img/calculator.png" style="width: 60px; height: 60px;"/>KIDTUNG</h1>
         <p class="lead">Kidtung is an application to manage and calculate expend during the trip.</p>
     </div>
     <div class="jumbotron">
         <h4>Create Group</h4>
-        <form ng-submit="processForm()" class="form-horizontal">
+        <form ng-submit="processForm()" class="form-horizontal" name="tripForm">
             <div class="form-group">
-                <label for="inputName" class="col-sm-3 control-label" id="test1">Trip Name</label>
+                <label for="name" class="col-sm-3 control-label" id="test1">Trip Name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="name" ng-change="validateTripName()" id="inputName" placeholder="eg. changmai_trip">
+                    <input type="text" required class="form-control" ng-model="name" ng-change="validateTripName()" name="name" id="name" placeholder="eg. changmai_trip">
                 </div>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div style="position: relative; margin: 0px auto; text-align: center;">
-            <button ng-disabled="hasError" type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            <button disabled ng-disabled="hasError || tripForm.name.$invalid || tripForm.member.$invalid" type="submit" id="test2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Create
             </button>
             </div>
@@ -116,11 +116,11 @@
 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!--<script src="/js/jquery-1.9.0.js"></script>   -->
-<script src="/js/bootstrap.min.js"></script>
+<script src="/kidtungasset/js/bootstrap.min.js"></script>
 <!--<script src="/js/docs.min.js"></script>-->
 <!--<script src="/js/jquery.zclip.js"></script> -->
-<script src="/js/jquery.clipboard.js"></script>
-<script src="/js/jquery.clipboard.swf"></script>
+<script src="/kidtungasset/js/jquery.clipboard.js"></script>
+<script src="/kidtungasset/js/jquery.clipboard.swf"></script>
 
 <script>
     $("#more-member").click(function () {
