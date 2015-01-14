@@ -1,6 +1,7 @@
 /* Space out content a bit */
 body {
   padding-top: 70px;
+    font-family: 'Lato', sans-serif;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -112,7 +113,14 @@ ul.nav {
     border: 1px solid #2A909E;
     color: #ffffff;
 }
-
+.btn-primary {
+    background : #DE8140;
+    border: 1px solid #D4703E;
+}
+.btn-primary:hover {
+    background: #E06C1F;
+    border: 1px solid #E06C1F;
+}
 .btn-add-payment {
     position: absolute;
     right: 15px;
