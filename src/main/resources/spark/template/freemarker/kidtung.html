@@ -86,7 +86,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -123,8 +123,10 @@
 <script src="/kidtungasset/js/jquery.clipboard.swf"></script>
 
 <script>
+    $("#name").focus();
     $("#more-member").click(function () {
-        $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-7"><input type="text" ng-model="member" name="member" class="form-control space-top"></div>')
+        $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-7"><input type="text" ng-model="member" name="member" class="form-control space-top member"></div>');
+        $(".member").focus();
     });
     /*
     $("#copy-dynamic").click(function () {

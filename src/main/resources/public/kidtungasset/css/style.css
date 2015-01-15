@@ -24,6 +24,7 @@ body {
 }
 h5.show-date {
     color: #808080;
+    font-style: italic;
 }
 .jumbotron {
     text-align: left;
@@ -48,6 +49,7 @@ h5.show-date {
     border-bottom: 3px solid #519DA5;
     border-radius: 0;
     color: #000000;
+    font-weight: bold;
 }
 .nav-pills > li > a:hover {
     background: #519DA5;
@@ -81,14 +83,14 @@ ul.nav {
 }
 .paymentlist td:nth-child(5) {
     text-align: right;
-    width: 100px;
+    width: 50px;
 }
 .paymentlist td:nth-child(6) {
     text-align: right;
-    width: 30px;
+    width: 25px;
 }
 .paymentlist td:nth-child(5) .btn, .paymentlist td:nth-child(6) .btn {
-    padding: 4px 7px;
+    padding: 1px 3px;
     font-size: 12px;
 }
 
@@ -101,10 +103,10 @@ ul.nav {
 .row-total td:nth-child(4) {
     width: 20px;
     text-align: right;
-    padding-right: 150px;
+    padding-right: 90px;
 }
 .btn-default {
-    background: #5ca1ac;
+    background: #5ca1ac !important;
     border: 1px solid #5ca1ac;
     color: #fff;
 }
@@ -184,6 +186,23 @@ font-family: 'Lato', sans-serif;
 .tab-content {
     margin-top: 20px;
 }
+.balance-box,.amount-box {
+    text-align: center;
+    border: 1px solid #eeeeee;
+    background: #f5f5f5;
+}
+.balance-box h2 {
+    color: #de8140;
+}
+.amount-box h2 {
+    color: #2882a3;
+}
+h4.label-total {
+    color: #808080;
+}
+.amount-box {
+    text-align: center;
+}
 #tbl-summary {
     margin-top: 10px;
 }
@@ -212,6 +231,9 @@ font-family: 'Lato', sans-serif;
     text-align: right;
     font-size: 20px;
 }
+.nav-tabs > li {
+    margin-bottom: 0px;
+}
 .nav-tabs > li > a {
     font-family: 'Lato', sans-serif;
     font-size: 18px;
@@ -220,6 +242,13 @@ font-family: 'Lato', sans-serif;
 }
 .nav-tabs > li > a:hover {
     background: #f0f0f0;
+    border-radius: 0px;
+    border-bottom: 2px solid #dddddd;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background: transparent;
+    border: 0px;
+    border-bottom: 3px solid #2882a3;
 }
 button.input-group-addon {
     float: left;
@@ -308,6 +337,9 @@ h4, h3, nav, .btn-add-payment {
     }
     .jumbotron .btn-primary {
         width: 100%;
+    }
+    .amount-box {
+        margin-top: 15px;
     }
 }
 @media screen and (max-width: 480px) {

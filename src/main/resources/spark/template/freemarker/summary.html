@@ -67,8 +67,13 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <h3>Total Balance : {{tripAverage|currency:""}} &#3647;</h3>
-                <h4>Total Amount : {{total|currency:""}} &#3647;</h4>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                <div class="col-sm-6 balance-box"><h2>{{tripAverage|currency:""}} &#3647;</h2><h4 class="label-total">Total Balance</h4></div>
+                <div class="col-sm-6 amount-box"><h2>{{total|currency:""}} &#3647;</h2><h4 class="label-total">Total Amount</h4></div>
+                    </div>
+                </div>
                 <table id="tbl-summary" class="table">
                     <thead>
                         <tr>
@@ -80,7 +85,7 @@
                     <tbody>
                         <tr ng-repeat="each in totalForEach">
                             <td><span class="label label-blue">{{each.memberName}}</span></td>
-                            <td>{{each.pay}}&#3647;</td>
+                            <td>{{each.pay|currency}}&#3647;</td>
                             <td ng-if="each.balance < 0"><span class="txt-red">{{each.balance|currency:""}} &#3647;</span></td>
                             <td ng-if="each.balance >= 0"><span class="txt-green">{{each.balance|currency:""}} &#3647;</span></td>
                         </tr>
