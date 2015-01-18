@@ -22,9 +22,18 @@ body {
     font-family: 'Oswald', sans-serif;
     color: #000000;
 }
-h5.show-date {
+.date-group {
+    margin-top: 30px;
+}
+.show-date {
     color: #808080;
-    font-style: italic;
+    font-style: normal;
+}
+.show-date-row {
+    background: #f5f5f5;
+    width: 100%;
+    padding: 3px 10px;
+    border-radius: 2px 2px 0 0;
 }
 .jumbotron {
     text-align: left;
@@ -67,7 +76,7 @@ ul.nav {
     background: #749A61;
 }
 .label-blue {
-    background: #8DCDE6;
+    background: #61aab2;
 }
 .paymentlist td:first-child, .row-total td:first-child {
     width: 100px;
@@ -75,11 +84,14 @@ ul.nav {
 .paymentlist td:nth-child(3) {
     width: 200px;
     text-align: right;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 18px;
 }
 .paymentlist td:nth-child(4) {
     width: 20px;
     text-align: right;
+    font-size: 18px;
+    color: #808080;
 }
 .paymentlist td:nth-child(5) {
     text-align: right;
@@ -92,6 +104,12 @@ ul.nav {
 .paymentlist td:nth-child(5) .btn, .paymentlist td:nth-child(6) .btn {
     padding: 1px 3px;
     font-size: 12px;
+}
+.paymentlist td:nth-child(5) .btn {
+     color: #808080;
+ }
+.paymentlist td:nth-child(6) .btn {
+    color: #ba2c2e;
 }
 
 .row-total {
@@ -302,6 +320,9 @@ h4, h3, nav, .btn-add-payment {
 .label {
     font-weight: normal;
     font-size: 100%;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: 1px dotted #ddd;
 }
 
 /* Responsive: Portrait tablets and up */

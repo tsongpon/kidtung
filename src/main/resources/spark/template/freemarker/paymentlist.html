@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/kidtungasset/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/kidtungasset/css/datepicker.css" rel="stylesheet">
+    <!--
+    <link href="/kidtungasset/css/datepicker.css" rel="stylesheet"> -->
+    <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css" media="screen" type="text/css" rel="stylesheet">
+    <link href="http://eonasdan.github.io/bootstrap-datetimepicker/content/site.css">
 
     <!-- Custom styles for this template -->
     <link href="/kidtungasset/css/style.css" rel="stylesheet">
@@ -43,7 +46,7 @@
     <!--</script>-->
 
     <!-- LOAD JQUERY -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
     <!-- LOAD ANGULAR -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 
@@ -71,8 +74,10 @@
         <div class="col-lg-12">
             <h4>Payment List</h4>
             <button type="button" class="btn btn-primary btn-add-payment" data-toggle="modal" data-target="#newExpend">+ Add New Expend</button>
-            <span ng-repeat = '(key, expends) in allExpends'>
-                <h5 class="show-date" style="margin-top: 30px;">{{key}}</h5>
+            <div ng-repeat = '(key, expends) in allExpends' class="date-group">
+                <div class="show-date-row">
+                <span class="show-date">{{key}}</span>
+                    </div>
                 <table class="table paymentlist">
                     <tr ng-repeat="expend in expends">
                         <td><span class="label label-blue">{{expend.name}}</span></td>
@@ -83,7 +88,7 @@
                         <td><button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
                     </tr>
                 </table>
-            </span>
+            </div>
 
             <table class="table row-total">
                 <tr>
@@ -97,7 +102,6 @@
     </div>
 
     <!-- Modal -->
-
     <div class="modal fade" id="newExpend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,8 +139,8 @@
                     <div class="form-group">
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
-                            <div class="input-group">
-                                <input class="form-control" required type="date" id="inputDate" ng-model="date" name="date" placeholder="">
+                            <div class="input-group" id="datetimepicker1">
+                                <input class="form-control" required type="date" ng-model="date" name="date" placeholder="YYYY-MM-DD" id="inputDate" data-date-format="YYYY-MM-DD">
                                 <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
                             </div>
                         </div>
@@ -158,17 +162,31 @@
     </footer>
 
 </div> <!-- /container -->
+
 <!--
  Bootstrap core JavaScript
 =======================
 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="/kidtungasset/js/bootstrap.min.js"></script>
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    -->
+<!--
+<script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>   -->
+<!--<script src="/kidtungasset/js/bootstrap.min.js"></script>   -->
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/moment.js"></script>
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/bootstrap.min.js"></script>
 <script src="/kidtungasset/js/docs.min.js"></script>
+<!--
 <script src="/kidtungasset/js/bootstrap-datepicker.js"></script>
-<script>
-//$(".date-picker").datepicker();
+-->
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/ru.js"></script>
 
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+        pickTime: false
+        });
+    });
 </script>
 </body>
 </html>
