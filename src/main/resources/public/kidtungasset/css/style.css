@@ -23,7 +23,7 @@ body {
     color: #000000;
 }
 .date-group {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .show-date {
     color: #808080;
@@ -34,6 +34,23 @@ body {
     width: 100%;
     padding: 3px 10px;
     border-radius: 2px 2px 0 0;
+}
+.headline {
+    position: fixed;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    z-index: 1000;
+    background: white;
+    display: block;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    padding-top: 20px;
+    height: 80px;
+    display: block;
+}
+.headline:after {
+    clear: both;
 }
 .jumbotron {
     text-align: left;
@@ -133,7 +150,7 @@ ul.nav {
     border: 1px solid #2A909E;
     color: #ffffff;
 }
-.btn-primary {
+.btn-primary, .btn-primary:focus, .btn-primary:active {
     background : #DE8140;
     border: 1px solid #D4703E;
 }

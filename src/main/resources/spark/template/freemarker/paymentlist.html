@@ -69,11 +69,24 @@
     </div>
         </div>
     </nav>
+<div class="headline">
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <h4>Payment List</h4>
             <button type="button" class="btn btn-primary btn-add-payment" data-toggle="modal" data-target="#newExpend">+ Add New Expend</button>
+            </div>
+    </div>
+</div> </div>
+<div class="container" style="margin-top: 60px;">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-6 balance-box"><h2>{{tripAverage|currency:""}} &#3647;</h2><h4 class="label-total">Total Balance</h4></div>
+            <div class="col-sm-6 amount-box"><h2>{{total|currency:""}} &#3647;</h2><h4 class="label-total">Total Amount</h4></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
             <div ng-repeat = '(key, expends) in allExpends' class="date-group">
                 <div class="show-date-row">
                 <span class="show-date">{{key}}</span>
@@ -105,7 +118,7 @@
     <div class="modal fade" id="newExpend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form ng-submit="expendForm()" name="addExpendForm" class="form-horizontal">
+                <form ng-submit="expendForm()" name="addExpendForm" class="form-horizontal addExpendForm">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">New Expend</h4>
@@ -147,8 +160,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-default" disabled ng-disabled="addExpendForm.name.$invalid || addExpendForm.purpose.$invalid || addExpendForm.price.$invalid || addExpendForm.date.$invalid" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn close-add-payment" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default save-add-payment" disabled ng-disabled="addExpendForm.name.$invalid || addExpendForm.purpose.$invalid || addExpendForm.price.$invalid || addExpendForm.date.$invalid" class="btn btn-primary">Save</button>
                     </div>
 
                 </div>
@@ -167,25 +180,32 @@
  Bootstrap core JavaScript
 =======================
 -->
-<!--
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!--
 <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>   -->
-<!--<script src="/kidtungasset/js/bootstrap.min.js"></script>   -->
+<script src="/kidtungasset/js/bootstrap.min.js"></script>
+<!--
 <script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/moment.js"></script>
 <script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/bootstrap.min.js"></script>
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/bootstrap.min.js"></script>-->
 <script src="/kidtungasset/js/docs.min.js"></script>
 <!--
 <script src="/kidtungasset/js/bootstrap-datepicker.js"></script>
--->
-<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/ru.js"></script>
 
+<script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/ru.js"></script>
+ -->
 <script type="text/javascript">
     $(function () {
+        $('.close-add-payment, .save-add-payment').on('click', function(e){
+            e.preventDefault();
+            $(".addExpendForm")[0].reset();
+        });
+
         $('#datetimepicker1').datetimepicker({
         pickTime: false
         });
+
     });
 </script>
 </body>
