@@ -87,29 +87,21 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div ng-repeat = '(key, expends) in allExpends' class="date-group">
-                <div class="show-date-row">
-                <span class="show-date">{{key}}</span>
-                    </div>
-                <table class="table paymentlist">
-                    <tr ng-repeat="expend in expends">
-                        <td><span class="label label-blue">{{expend.name}}</span></td>
-                        <td>{{expend.item}}</td>
-                        <td>{{expend.price | currency:""}}</td>
-                        <td>&#3647; </td>
-                        <td><button type="button" ng-click='editExpend(expend.code, expend.name)' class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                        <td><button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
-                    </tr>
-                </table>
-            </div>
-
-            <table class="table row-total">
-                <tr>
-                    <td></td>
-                    <td>Total</td>
-                    <td>{{total|currency:""}}</td>
-                    <td>&#3647; </td>
+            <table class="table paymentlist">
+                <tbody ng-repeat = '(key, expends) in allExpends' class="date-group">
+                <tr class="header">
+                    <th colspan="5">
+                        {{key}}
+                    </th>
                 </tr>
+                <tr ng-repeat="expend in expends">
+                    <td><span class="label label-blue">{{expend.name}}</span></td>
+                    <td>{{expend.item}}</td>
+                    <td>{{expend.price}} &#3647;</td>
+                    <td><button type="button" ng-click='editExpend(expend.code, expend.name)' class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -153,7 +145,7 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group" id="datetimepicker1">
-                                <input class="form-control" required type="date" ng-model="date" name="date" placeholder="YYYY-MM-DD" id="inputDate" data-date-format="YYYY-MM-DD">
+                                <input class="form-control" required type="date" ng-model="date" name="date" id="inputDate" data-date-format="YYYY-MM-DD">
                                 <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
                             </div>
                         </div>
