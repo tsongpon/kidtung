@@ -35,16 +35,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!--&lt;!&ndash; cdn for modernizr, if you haven't included it already &ndash;&gt;-->
-    <!--<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>-->
-    <!--&lt;!&ndash; polyfiller file to detect and load polyfills &ndash;&gt;-->
-    <!--<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>-->
-    <!--<script>-->
-        <!--webshims.setOptions('waitReady', false);-->
-        <!--webshims.setOptions('forms-ext', {types: 'date'});-->
-        <!--webshims.polyfill('forms forms-ext');-->
-    <!--</script>-->
-
     <!-- LOAD JQUERY -->
     <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
     <!-- LOAD ANGULAR -->
@@ -65,7 +55,8 @@
                 <li role="presentation" class="help"><a href="#">Help</a></li>
             </ul>
         </nav>
-        <h3 class="text-muted"><img src="/kidtungasset/img/calculator.png" style="width: 35px; height: 35px;"/>KIDTUNG</h3>
+        <h3 class="text-muted"><a href="/kidtung"><img src="/kidtungasset/img/calculator.png" /></a>KIDTUNG</h3>
+        <span class="trip-name">{{globalTripCode}}</span>
     </div>
         </div>
     </nav>
@@ -98,8 +89,9 @@
                     <td><span class="label label-blue">{{expend.name}}</span></td>
                     <td>{{expend.item}}</td>
                     <td>{{expend.price}} &#3647;</td>
-                    <td><button type="button" ng-click='editExpend(expend.code, expend.name)' class="btn" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                    <td><button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    <td><button type="button" ng-click='editExpend(expend.code, expend.name)' class="btn btn-edit" data-toggle="modal" data-target="#newExpend"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" ng-click='deleteExpend(expend.code, expend.name)' class="btn btn-del"><span class="glyphicon glyphicon-trash"></span></button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -113,7 +105,7 @@
                 <form ng-submit="expendForm()" name="addExpendForm" class="form-horizontal addExpendForm">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">New Expend</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Expend</h4>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" ng-model="code">
@@ -145,7 +137,7 @@
                         <label for="inputDate" class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9">
                             <div class="input-group" id="datetimepicker1">
-                                <input class="form-control" required type="date" ng-model="date" name="date" id="inputDate" data-date-format="YYYY-MM-DD">
+                                <input class="form-control" required type="date" ng-model="date" name="date" id="inputDate" data-date-format="YYYY-MM-DD" placeholder="YYYY-MM-DD">
                                 <div class="input-group-addon btn" for="inputDate"><span class="glyphicon glyphicon-calendar"></span></div>
                             </div>
                         </div>
@@ -187,6 +179,7 @@
 
 <script src="http://eonasdan.github.io/bootstrap-datetimepicker/scripts/ru.js"></script>
  -->
+<script language="javascript" type="text/javascript" src="/kidtungasset/js/jquery.zclip.js"></script>
 <script type="text/javascript">
     $(function () {
         $('.close-add-payment, .save-add-payment').on('click', function(e){

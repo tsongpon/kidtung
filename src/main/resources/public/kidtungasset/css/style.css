@@ -16,11 +16,21 @@ body {
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-    margin-top: 5px;
+    margin-top: 0px;
     margin-bottom: 0;
     line-height: 40px;
     font-family: 'Oswald', sans-serif;
     color: #000000;
+    font-size: 18px;
+}
+.header h3 img {
+width: 35px; height: 35px;
+margin-top: 5px;
+}
+.trip-name {
+margin-left: 35px;
+margin-top: -15px;
+position: absolute;
 }
 .date-group {
     margin-top: 10px;
@@ -71,7 +81,7 @@ body {
     border-bottom: 3px solid #519DA5;
 }
 ul.nav {
-    margin-top: -5px;
+    margin-top: 0px;
 }
 ul.nav-tabs {
     margin-top: 0px;
@@ -113,20 +123,15 @@ table.paymentlist tr.header th {
 }
 .paymentlist td:nth-child(4) {
     text-align: right;
-    width: 50px;
-}
-.paymentlist td:nth-child(5) {
-    text-align: right;
-    width: 25px;
 }
 .paymentlist td:nth-child(4) .btn, .paymentlist td:nth-child(5) .btn {
     padding: 1px 3px;
     font-size: 12px;
 }
-.paymentlist td:nth-child(4) .btn {
+.paymentlist td:nth-child(4) .btn-edit {
      color: #808080;
  }
-.paymentlist td:nth-child(5) .btn {
+.paymentlist td:nth-child(4) .btn-del {
     color: #ba2c2e;
 }
 
