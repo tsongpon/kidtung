@@ -68,6 +68,7 @@ function addExpendController($scope, $http) {
     };
 
     $scope.editExpend = function(expendCode, memberName) {
+    $scope.boxName = 'Edit Expend';
         var path = window.location.pathname;
         var tripCode = path.split("/")[2];
         $http.get('/api/kidtung/trips/'+tripCode+'/members/'+memberName+'/expends/'+expendCode).
@@ -137,7 +138,7 @@ function addExpendController($scope, $http) {
         }
     };
 
-
+    $scope.boxName = 'Add Expend';
     initPaymentList($scope, $http);
     var path = window.location.pathname;
     $scope.globalTripCode = path.split("/")[2];

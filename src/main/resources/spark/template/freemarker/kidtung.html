@@ -86,7 +86,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,11 +96,11 @@
                 </div>
                 <div class="modal-body">
                     <span>This is your trip channel, please copy and share this link to your friend.</span><br/>
-                    <div class="well" id="dynamic">{{address}}</div>
+                    <div class="well" id="text-link">{{address}}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-default" id="copy-dynamic" ng-click="openTrip();">Copy link and Close</button>
+                    <button type="button" class="btn btn-default btn-copy" id="copy-link" ng-click="openTrip();">Copy link and Close</button>
                 </div>
             </div>
         </div>
@@ -118,9 +119,8 @@
 <!--<script src="/js/jquery-1.9.0.js"></script>   -->
 <script src="/kidtungasset/js/bootstrap.min.js"></script>
 <!--<script src="/js/docs.min.js"></script>-->
-<!--<script src="/js/jquery.zclip.js"></script> -->
-<script src="/kidtungasset/js/jquery.clipboard.js"></script>
-<script src="/kidtungasset/js/jquery.clipboard.swf"></script>
+<script language="javascript" type="text/javascript" src="/kidtungasset/js/jquery.zclip.js"></script>
+
 
 <script>
     $("#name").focus();
@@ -128,37 +128,14 @@
         $("#memberlist .form-group").append('<div class="col-sm-3"></div><div class="col-sm-7"><input type="text" ng-model="member" name="member" class="form-control space-top member"></div>');
         $(".member").focus();
     });
-    /*
-    $("#copy-dynamic").click(function () {
-    var test = $("#dynamic").text();
-    alert(test);
-    window.location.href='kidtung/paymentlist';
-    });
-      */
-     /*
-    $("#copy-dynamic").zclip({
-        path:"js/ZeroClipboard.swf",
-        copy:function(){
-        return $("#dynamic").text();
-        }
-    });
-    */
-    $('#copy-dynamic').clipboard({
-    path: 'js/jquery.clipboard.swf',
-    copy: function() {
-    var test = $('#dynamic').text();
-    alert('Text copied. Try to paste it now!' + test);
-    return $('#dynamic').text();
-    }
-    });
-    /*
-    $("#test2").zclip({
-    path:"js/ZeroClipboard.swf",
+
+    $(".btn-copy").zclip({
+    path: '/kidtungasset/js/ZeroClipboard.swf',
     copy:function(){
-    return $("#test1").text();
+    return $('#text-link').text();
     }
     });
-    */
+
 </script>
 </body>
 </html>
