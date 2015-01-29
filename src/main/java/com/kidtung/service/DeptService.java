@@ -67,7 +67,9 @@ public class DeptService {
                     dept.setTo(positiveDept.getNane());
                     if (negDept.getBalance().compareTo(positiveDept.getBalance()) == 0) {
                         dept.setAmount(positiveDept.getBalance());
-                        deptTransports.add(dept);
+                        if(!dept.getAmount().equals(BigDecimal.ZERO)) {
+                            deptTransports.add(dept);
+                        }
                         positiveDept.setBalance(BigDecimal.ZERO);
                         negDept.setBalance(BigDecimal.ZERO);
                     } else {
@@ -81,11 +83,14 @@ public class DeptService {
                             negDept.setBalance(BigDecimal.ZERO);
                             //negativeMember.remove(negDept);
                         }
-                        deptTransports.add(dept);
+                        if(!dept.getAmount().equals(BigDecimal.ZERO)) {
+                            deptTransports.add(dept);
+                        }
                     }
                 }
             }
         }
+
         return deptTransports;
     }
 

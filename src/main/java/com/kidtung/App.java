@@ -34,33 +34,14 @@ public class App {
         //config static file location
         staticFileLocation("/public");
 
+        //Start static route
         get("/kidtung", (request, response) -> {
             log.debug("Redering kidtung.html");
             // The hello.html file is located in directory:
             // src/resources/spark/template/freemarker
             return new ModelAndView(null, "kidtung.html");
         }, new FreeMarkerEngine());
-//        get("/kidtung/paymentlist", (request, response) -> {
-//            // The hello.html file is located in directory:
-//            // src/resources/spark/template/freemarker
-//            return new ModelAndView(null, "paymentlist.html");
-//        }, new FreeMarkerEngine());
-//        get("/kidtung/summary", (request, response) -> {
-//            // The hello.html file is located in directory:
-//            // src/resources/spark/template/freemarker
-//            return new ModelAndView(null, "summary.html");
-//        }, new FreeMarkerEngine());
-//
-//        get("/kidtung/api/trips/:code/members", "application/json", (request, response) -> {
-//            // mockdata
-//            System.out.println("tripCode :" + request.params(":code"));
-//            List<Member> memberList = new KidtungMock().mockTrip().getMemberList();
-//
-//            return memberList;
-//        }, json());
 
-
-        //static route
         get("/kidtung/:tripcode", (request, response) -> {
             log.info("GET kidtung/:tripcode");
             String tripCode = request.params(":tripcode");
@@ -74,7 +55,6 @@ public class App {
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
 
-        //static route
         get("/kidtung/:tripcode/summary", (request, response) -> {
             log.info("GET kidtung/:tripcode");
             String tripCode = request.params(":tripcode");
@@ -102,13 +82,14 @@ public class App {
 
             return new ModelAndView(null, "paymentlist.html");
         }, new FreeMarkerEngine());
+        // end of static route
 
+        //RESTFul API route
         //for expend
         get("/api/kidtung/trips/:code/expends", (request, response) -> {
             log.info("GET /api/kidtung/trips/" + request.params(":code") + "/expends");
             TripDAO tripDAO = new TripDAO();
             Trip trip = tripDAO.loadTripByCode(request.params(":code"));
-
 
             if (trip != null) {
                 List<Expend> expendListAll = new ArrayList<>();
@@ -126,15 +107,12 @@ public class App {
             List<Expend> expendList = new ArrayList();
             TripDAO tripDAO = new TripDAO();
             List<Member> memberList = tripDAO.loadTripByCode(tripCode).getMemberList();
-            for (int i = 0; i < memberList.size(); i++) {
-                Member member = memberList.get(i);
-                if (name.equals(member.getName())) {
-                    expendList = member.getExpendList();
-                    break;
-                }
+            Optional<Member> member = memberList.stream().filter(e->name.equals(e.getName())).findFirst();
+            if(member.isPresent()) {
+                return member.get();
+            } else {
+                return Collections.emptyList();
             }
-            log.info(name + " = " + expendList.size());
-            return expendList;
         }, json());
 
         get("/api/kidtung/trips/:code/members/:name/expends/:expendCode", "application/json", (request, response) -> {
