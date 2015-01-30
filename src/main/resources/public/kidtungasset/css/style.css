@@ -87,15 +87,18 @@ ul.nav-tabs {
     margin-top: 0px;
 }
 
-.label-pink {
+.label-pink, .label0 {
     background: #DC6369;
 }
-.label-green {
+.label-green,.label1 {
     background: #749A61;
 }
-.label-blue {
+.label-blue,.label2 {
     background: #61aab2;
 }
+.label3 {background: blue;}
+.label4 {background: red;}
+.label5 {background: orange;}
 
 table.paymentlist {
     margin-top: 10px;
@@ -152,6 +155,10 @@ table.paymentlist tr.header th {
 .btn-primary:hover {
     background: #E06C1F;
     border: 1px solid #E06C1F;
+}
+.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled.focus, .btn-primary.focus[disabled], fieldset[disabled] .btn-primary.focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary.active[disabled], fieldset[disabled] .btn-primary.active {
+    background: #d4703e;
+    border: 1px solid #d4703e;
 }
 .btn-add-payment {
     position: absolute;
